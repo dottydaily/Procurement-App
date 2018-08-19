@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFFACD;" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginUiController">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFFACD;">
+          <children>
+              <Pane layoutX="241.0" layoutY="40.0" prefHeight="320.0" prefWidth="330.0" style="-fx-background-color: #FDF5E6#FFCCCC;">
+                  <children>
+                      <Label fx:id="signInLabel" alignment="TOP_CENTER" layoutX="152.0" layoutY="14.0" text="Sign In" textFill="RED">
+                          <font>
+                              <Font size="14.0" />
+                          </font>
+                      </Label>
+                  <Label fx:id="statusLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="75.0" layoutY="53.0" prefWidth="250.0" text="Please fill your Username/ID or Password." />
+                      <Button fx:id="logInButton" layoutX="105.0" layoutY="202.0" mnemonicParsing="false" onAction="#handleLogInButton" prefHeight="25.0" prefWidth="169.0" style="-fx-background-color: #FFCCCC;" text="Login" textFill="RED" />
+                      <Button fx:id="signUpButton" layoutX="105.0" layoutY="251.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="169.0" style="-fx-background-color: #FFCCCC;" text="Sign Up" textFill="RED" />
+                      <ImageView fitHeight="100.0" fitWidth="30.0" layoutX="64.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../image/id-card.png" />
+                          </image>
+                      </ImageView>
+                      <ImageView fitHeight="100.0" fitWidth="25.0" layoutX="67.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../image/keyhole.png" />
+                          </image>
+                      </ImageView>
+                      <JFXTextField fx:id="usernameTextField" layoutX="104.0" layoutY="98.0" prefWidth="169.0" promptText="Username/ID" />
+                      <JFXPasswordField fx:id="passwordTextField" layoutX="104.0" layoutY="145.0" onKeyPressed="#handlePasswordField" prefWidth="169.0" promptText="Password" />
+                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/delivery-truck.png" />
+                     </image>
+                  </ImageView>
+                  </children>
+              </Pane>
+              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="40.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                      <Image url="@../image/magnifier.png" />
+                  </image>
+              </ImageView>
+          </children>
+      </AnchorPane>
+   </children>
+</StackPane>

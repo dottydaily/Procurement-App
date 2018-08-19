@@ -7,7 +7,7 @@ public class DBConnecter {
     private Connection connect;
     private Statement statement;
 
-    DBConnecter() {
+    public DBConnecter() {
         try {
             connect = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/mysql","root","1234");

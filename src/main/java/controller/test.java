@@ -6,8 +6,6 @@ import java.sql.SQLException;
 public class test {
     public static void main(String[] args) {
         DBConnecter connecter = new DBConnecter();
-
-
         try {
             ResultSet resultSet = connecter.getResultSet("select * from user_list");
 
@@ -15,11 +13,10 @@ public class test {
                 System.out.println(
                         resultSet.getString("username"));
             }
+            resultSet.beforeFirst();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
     }
 }
