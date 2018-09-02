@@ -1,5 +1,7 @@
 package controller;
 
+import model.DBConnecter;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

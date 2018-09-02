@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 import java.sql.*;
 
@@ -20,5 +20,20 @@ public class DBConnecter {
 
     public ResultSet getResultSet(String query) throws SQLException{
         return statement.executeQuery(query);
+    }
+
+    public void insertUserData(String username, String password, String firstName, String lastName,
+                               String email, String phoneNumber) {
+
+        String query = "INSERT INTO user_list VALUES (NULL, ";
+        query = query + String.format("'%s', '%s', '%s', '%s', '%s', '%s')",
+                firstName, lastName, username, password, email, phoneNumber);
+
+        System.out.println(query);
+        try {
+            statement.executeUpdate(query);
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        }
     }
 }

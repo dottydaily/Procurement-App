@@ -1,14 +1,16 @@
-package view;
+package controller;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import controller.DBConnecter;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.stage.Stage;
+import model.DBConnecter;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,9 +23,9 @@ public class LoginUiController {
     protected Label statusLabel;
 
     @FXML
-    protected Button logInButton;
+    protected JFXButton logInButton;
     @FXML
-    protected Button signUpButton;
+    protected JFXButton signUpButton;
 
     @FXML
     protected JFXTextField usernameTextField;
@@ -75,6 +77,13 @@ public class LoginUiController {
                 sqlEx.printStackTrace();
             }
         }
+    }
+
+    @FXML
+    protected void handleSignUpButton(ActionEvent e) {
+        int width = (int) (((Node) e.getSource()).getScene().getWidth());
+        int height = (int) (((Node) e.getSource()).getScene().getHeight());
+        PageSwapper.swapPage(e, "RegisterUi.fxml");
     }
 
     @FXML
