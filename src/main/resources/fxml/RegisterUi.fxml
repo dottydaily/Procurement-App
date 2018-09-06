@@ -24,13 +24,13 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="firstNameTextField" layoutX="40.0" layoutY="50.0" maxWidth="158.0" minWidth="133.0" prefHeight="30.0" prefWidth="150.0" promptText="First Name" />
-                  <JFXTextField fx:id="lastNameTextField" layoutX="210.0" layoutY="50.0" maxWidth="168.0" minWidth="133.0" prefHeight="30.0" prefWidth="150.0" promptText="Last Name" />
-                  <JFXTextField fx:id="usernameTextField" layoutX="40.0" layoutY="100.0" maxWidth="175.0" minWidth="175.0" prefHeight="30.0" prefWidth="175.0" promptText="Username" />
-                  <JFXPasswordField fx:id="passwordField" layoutX="40.0" layoutY="140.0" prefHeight="30.0" prefWidth="175.0" promptText="Password" />
-                  <JFXPasswordField fx:id="confirmPasswordField" layoutX="40.0" layoutY="180.0" prefHeight="30.0" prefWidth="175.0" promptText="Confirm Password" />
-                  <JFXTextField fx:id="emailTextField" layoutX="40.0" layoutY="230.0" maxWidth="175.0" minWidth="175.0" prefHeight="30.0" prefWidth="175.0" promptText="E-mail" />
-                  <JFXTextField fx:id="phoneNumberTextField" layoutX="40.0" layoutY="270.0" maxWidth="175.0" minWidth="175.0" prefHeight="30.0" prefWidth="150.0" promptText="Phone Number" />
+                  <JFXTextField fx:id="firstNameTextField" labelFloat="true" layoutX="40.0" layoutY="50.0" maxWidth="158.0" minWidth="133.0" prefHeight="30.0" prefWidth="150.0" promptText="First Name" />
+                  <JFXTextField fx:id="lastNameTextField" labelFloat="true" layoutX="210.0" layoutY="50.0" maxWidth="168.0" minWidth="133.0" prefHeight="30.0" prefWidth="150.0" promptText="Last Name" />
+                  <JFXTextField fx:id="usernameTextField" labelFloat="true" layoutX="40.0" layoutY="110.0" maxWidth="175.0" minWidth="150.0" prefHeight="30.0" prefWidth="150.0" promptText="Username" />
+                  <JFXPasswordField fx:id="passwordField" labelFloat="true" layoutX="40.0" layoutY="160.0" prefHeight="30.0" prefWidth="150.0" promptText="Password" />
+                  <JFXPasswordField fx:id="confirmPasswordField" labelFloat="true" layoutX="210.0" layoutY="160.0" prefHeight="30.0" prefWidth="150.0" promptText="Confirm Password" />
+                  <JFXTextField fx:id="emailTextField" labelFloat="true" layoutX="40.0" layoutY="220.0" maxWidth="175.0" minWidth="175.0" prefHeight="30.0" prefWidth="175.0" promptText="E-mail" />
+                  <JFXTextField fx:id="phoneNumberTextField" labelFloat="true" layoutX="40.0" layoutY="270.0" maxWidth="175.0" minWidth="175.0" prefHeight="30.0" prefWidth="175.0" promptText="Phone Number" />
                   <JFXButton fx:id="backButton" alignment="CENTER" contentDisplay="CENTER" layoutX="80.0" layoutY="345.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleBackButton" prefHeight="35.0" prefWidth="110.0" ripplerFill="#aeaeae" style="-fx-background-color: transparent;" text="Back" textAlignment="CENTER" textFill="RED" underline="true" wrapText="true">
                      <font>
                         <Font name="System Bold Italic" size="14.0" />

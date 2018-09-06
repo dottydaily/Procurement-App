@@ -20,6 +20,45 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.zenjava</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>8.8.3</version>
+                <configuration>
+                    <mainClass>Main</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>create-jfxjar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--<plugin>-->
+                <!--<artifactId>maven-assembly-plugin</artifactId>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>create-javafx-jar</id>-->
+                        <!--<phase>package</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>single</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                    <!--<archive>-->
+                        <!--<manifest>-->
+                            <!--<mainClass>Main</mainClass>-->
+                        <!--</manifest>-->
+                    <!--</archive>-->
+                    <!--<descriptorRefs>-->
+                        <!--<descriptorRef>jar-with-dependencies</descriptorRef>-->
+                    <!--</descriptorRefs>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 
@@ -31,13 +70,6 @@
             <version>8.0.12</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.jfoenix/jfoenix -->
-        <!--<dependency>-->
-            <!--<groupId>com.jfoenix</groupId>-->
-            <!--<artifactId>jfoenix</artifactId>-->
-            <!--<version>9.0.6</version>-->
-        <!--</dependency>-->
-
         <!--&lt;!&ndash; https://mvnrepository.com/artifact/com.jfoenix/jfoenix &ndash;&gt;-->
         <dependency>
             <groupId>com.jfoenix</groupId>
@@ -46,19 +78,18 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
-        <!--<dependency>-->
-            <!--<groupId>org.controlsfx</groupId>-->
-            <!--<artifactId>controlsfx</artifactId>-->
-            <!--<version>9.0.0</version>-->
-        <!--</dependency>-->
-
-        <!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
         <dependency>
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
             <version>8.40.14</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.zenjava/javafx-maven-plugin -->
+        <dependency>
+            <groupId>com.zenjava</groupId>
+            <artifactId>javafx-maven-plugin</artifactId>
+            <version>8.8.3</version>
+        </dependency>
     </dependencies>
 
     <groupId>procurement</groupId>

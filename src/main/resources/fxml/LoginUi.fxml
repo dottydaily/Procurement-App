@@ -35,8 +35,8 @@
                         <Image url="@../image/keyhole.png" />
                      </image>
                   </ImageView>
-                  <JFXTextField fx:id="usernameTextField" layoutX="115.0" layoutY="119.0" prefWidth="169.0" promptText="Username/ID" />
-                  <JFXPasswordField fx:id="passwordTextField" layoutX="115.0" layoutY="166.0" onKeyPressed="#handlePasswordField" prefWidth="169.0" promptText="Password" />
+                  <JFXTextField fx:id="usernameTextField" labelFloat="true" layoutX="115.0" layoutY="119.0" prefWidth="169.0" promptText="Username/ID" />
+                  <JFXPasswordField fx:id="passwordTextField" labelFloat="true" layoutX="115.0" layoutY="166.0" onKeyPressed="#handlePasswordField" prefWidth="169.0" promptText="Password" />
                   <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="21.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/delivery-truck.png" />
