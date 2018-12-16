@@ -6,11 +6,13 @@ public class DBConnecter {
 
     private Connection connect;
     private Statement statement;
+    private String databaseName;
 
     public DBConnecter() {
+        databaseName = "procurement_app";
         try {
             connect = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/mysql","root","1234");
+                    "jdbc:mysql://localhost:3306/"+databaseName,"root","1234");
             statement = connect.createStatement();
             System.out.println("DATABASE CONNECTED!");
         } catch (Exception e) {
@@ -22,12 +24,12 @@ public class DBConnecter {
         return statement.executeQuery(query);
     }
 
-    public void insertUserData(String username, String password, String firstName, String lastName,
+    public void insertUserData(String firstName, String lastName, String username, String password,
                                String email, String phoneNumber) {
 
         String query = "INSERT INTO user_list VALUES (NULL, ";
         query = query + String.format("'%s', '%s', '%s', '%s', '%s', '%s')",
-                firstName, lastName, username, password, email, phoneNumber);
+                username, password, firstName, lastName, email, phoneNumber);
 
         System.out.println(query);
         try {

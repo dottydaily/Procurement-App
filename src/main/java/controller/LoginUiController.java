@@ -39,6 +39,13 @@ public class LoginUiController {
     public void initialize() {
         try {
             resultSet = database.getResultSet("SELECT * FROM user_list");
+
+            while (resultSet.next()) {
+                System.out.println(resultSet.getString("username"));
+                System.out.println(resultSet.getString("password"));
+            }
+
+            resultSet.beforeFirst();
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
         }
