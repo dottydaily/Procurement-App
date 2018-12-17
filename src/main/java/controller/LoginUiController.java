@@ -90,7 +90,7 @@ public class LoginUiController {
     protected void handleSignUpButton(ActionEvent e) {
         int width = (int) (((Node) e.getSource()).getScene().getWidth());
         int height = (int) (((Node) e.getSource()).getScene().getHeight());
-        PageSwapper.swapPage(e, "RegisterUi.fxml");
+        PageSwapper.swapPage(e, "RegisterView.fxml");
     }
 
     @FXML

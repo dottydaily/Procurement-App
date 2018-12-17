@@ -12,7 +12,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginUi.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginView.fxml"));
         primaryStage.setTitle("Procurement Application");
         primaryStage.setMinWidth(800);
         primaryStage.setMinHeight(600);

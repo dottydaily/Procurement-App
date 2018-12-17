@@ -64,7 +64,7 @@ public class RegisterUiController {
 
     @FXML
     protected void handleBackButton(ActionEvent e) {
-        PageSwapper.swapPage(e, "LoginUi.fxml");
+        PageSwapper.swapPage(e, "LoginView.fxml");
     }
 
     @FXML

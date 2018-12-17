@@ -2,7 +2,6 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -22,22 +21,22 @@
                   <DropShadow height="5.0" radius="2.0" width="5.0" />
                </effect>
                <children>
-                  <Label layoutX="51.0" layoutY="60.0" prefWidth="67.5" text="FirstName">
+                  <Label layoutX="51.0" layoutY="55.0" prefWidth="67.5" text="FirstName">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="52.0" layoutY="90.0" prefWidth="67.0" text="LastName">
+                  <Label layoutX="52.0" layoutY="85.0" prefWidth="67.0" text="LastName">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="52.0" layoutY="120.0" prefWidth="67.0" text="Email">
+                  <Label layoutX="52.0" layoutY="115.0" prefWidth="67.0" text="Email">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="52.0" layoutY="150.0" prefHeight="20.0" prefWidth="100.0" text="PhoneNumber">
+                  <Label layoutX="52.0" layoutY="145.0" prefHeight="20.0" prefWidth="100.0" text="PhoneNumber">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -47,7 +46,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <Label layoutX="52.0" layoutY="180.0" text="Credit Status">
+                  <Label layoutX="52.0" layoutY="175.0" text="Credit Status">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -57,22 +56,22 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <JFXTextArea layoutX="191.0" layoutY="223.0" maxWidth="250.0" minWidth="208.0" prefHeight="75.0" prefWidth="208.0" promptText="ใส่ที่อยู่" />
-                  <JFXTextField layoutX="191.0" layoutY="55.0" promptText="ใส่ ชื่อ" />
-                  <JFXTextField layoutX="191.0" layoutY="85.0" promptText="ใส่ นามสกุล" />
-                  <JFXTextField layoutX="191.0" layoutY="115.0" promptText="ใส่อีเมล์" />
-                  <JFXTextField layoutX="191.0" layoutY="145.0" promptText="ใส่เบอร์โทรศัพท์" />
-                  <JFXTextField layoutX="191.0" layoutY="175.0" promptText="ใส่ credit ลูกค้า" />
+                  <JFXTextArea layoutX="191.0" layoutY="225.0" maxWidth="250.0" minWidth="208.0" prefHeight="75.0" prefWidth="208.0" promptText="ใส่ที่อยู่" />
                   <JFXButton layoutX="280.0" layoutY="384.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #FFCCCC;" text="Cancel" textFill="RED">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
+                  <Label layoutX="191.0" layoutY="55.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" text="Label" />
+                  <Label layoutX="191.0" layoutY="85.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" text="Label" />
+                  <Label layoutX="191.0" layoutY="115.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" text="Label" />
+                  <Label layoutX="191.0" layoutY="145.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" text="Label" />
+                  <Label layoutX="191.0" layoutY="175.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" text="Label" />
                </children>
             </Pane>
             <ImageView fitHeight="217.0" fitWidth="189.0" layoutX="57.0" layoutY="206.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@information.png" />
+                  <Image url="@../image/information.png" />
                </image>
             </ImageView>
             <Label layoutX="458.0" layoutY="50.0" text="Create Customer" textFill="RED">
