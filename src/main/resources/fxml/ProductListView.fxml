@@ -1,37 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-image: url(/image/pattern-yellow.jpg);" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegisterUiController">
+<StackPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-image: url(/image/pattern-yellow.jpg);" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF; -fx-opacity: 0.85;" />
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
          <children>
-            <Pane layoutX="50.0" layoutY="100.0" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #fff7e6;">
+            <Pane layoutX="50.0" layoutY="100.0" prefHeight="450.0" prefWidth="700.0" style="-fx-background-color: #fff7e6;">
                <effect>
                   <DropShadow height="5.0" radius="2.0" width="5.0" />
                </effect>
                <children>
-                  <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="361.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #FFCCCC;" text="Back" textFill="RED">
+                  <TableView fx:id="productTableView" layoutX="10.0" layoutY="10.0" onMouseClicked="#clickProduct" prefHeight="380.0" prefWidth="680.0">
+                     <columns>
+                        <TableColumn fx:id="productIDTableColumn" prefWidth="100.0" text="Product ID" />
+                        <TableColumn fx:id="productNameTableColumn" prefWidth="320.0" text="Product Name" />
+                        <TableColumn fx:id="pricePerPieceTableColumn" prefWidth="160.0" text="Price Per Piece" />
+                        <TableColumn fx:id="amountTableColumn" prefWidth="100.0" text="Old Amount" />
+                     </columns>
+                  </TableView>
+                  <Label fx:id="amountPromptLabel" layoutX="71.0" layoutY="410.0" text="Amount" />
+                  <JFXTextField fx:id="amountTextField" disable="true" layoutX="132.0" layoutY="406.0" promptText="Ex. 25" />
+                  <JFXButton fx:id="addProductButton" buttonType="RAISED" defaultButton="true" disable="true" layoutX="296.0" layoutY="406.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleAddProductButton" prefHeight="25.0" prefWidth="330.0" style="-fx-background-color: #009b61;" text="Add selected product to PR's product list." textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <JFXTreeTableView layoutX="14.0" layoutY="14.0" prefHeight="329.0" prefWidth="662.0" />
                </children>
             </Pane>
-            <Label layoutX="309.0" layoutY="41.0" text="List of stock products" textFill="RED">
+            <Label layoutX="348.0" layoutY="43.0" text="Product History" textFill="RED">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
+            <JFXButton fx:id="backButton" buttonType="RAISED" cancelButton="true" layoutX="45.0" layoutY="560.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleBackButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #FFCCCC;" text="&lt;&lt; Back" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
          </children>
       </AnchorPane>
    </children>

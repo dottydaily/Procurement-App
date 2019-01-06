@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-image: url(/image/pattern-yellow.jpg);" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegisterUiController">
+<StackPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-image: url(/image/pattern-yellow.jpg);" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF; -fx-opacity: 0.85;" />
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
          <children>
-            <Pane layoutX="50.0" layoutY="100.0" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #fff7e6;">
+            <Pane layoutX="50.0" layoutY="100.0" prefHeight="450.0" prefWidth="700.0" style="-fx-background-color: #fff7e6;">
                <effect>
                   <DropShadow height="5.0" radius="2.0" width="5.0" />
                </effect>
                <children>
-                  <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="361.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #FFCCCC;" text="&lt;&lt; Back" textFill="RED">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXTreeTableView layoutX="14.0" layoutY="14.0" prefHeight="329.0" prefWidth="662.0" />
+                  <TableView fx:id="customerTableView" layoutX="15.0" layoutY="15.0" onMouseClicked="#clickCustomer" prefHeight="420.0" prefWidth="670.0">
+                    <columns>
+                      <TableColumn fx:id="idTableViewColumn" maxWidth="80.0" minWidth="60.0" prefWidth="75.0" text="Customer ID" />
+                      <TableColumn fx:id="firstNameTableViewColumn" maxWidth="100.0" minWidth="100.0" prefWidth="75.0" text="First Name" />
+                        <TableColumn fx:id="lastNameTableViewColumn" maxWidth="100.0" minWidth="100.0" prefWidth="75.0" text="Last Name" />
+                        <TableColumn fx:id="emailTableViewColumn" maxWidth="100.0" minWidth="100.0" prefWidth="75.0" text="Email" />
+                        <TableColumn fx:id="addressTableViewColumn" prefWidth="75.0" text="Address" />
+                        <TableColumn fx:id="telTableViewColumn" prefWidth="75.0" text="Tel" />
+                        <TableColumn fx:id="statusTableViewColumn" prefWidth="75.0" text="Status" />
+                        <TableColumn fx:id="limitTableViewColumn" prefWidth="75.0" text="Limit" />
+                    </columns>
+                  </TableView>
                </children>
             </Pane>
             <Label layoutX="348.0" layoutY="43.0" text="Customer List" textFill="RED">

@@ -3,6 +3,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.DBConnecter;
 
 public class Main extends Application {
 
@@ -12,7 +13,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/SelectMenuView.fxml"));
         primaryStage.setTitle("Procurement Application");
         primaryStage.setMinWidth(800);
         primaryStage.setMinHeight(600);

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-image: url(/image/pattern-yellow.jpg);" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegisterUiController">
+<StackPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-image: url(/image/pattern-yellow.jpg);" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF; -fx-opacity: 0.85;" />
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
@@ -42,32 +42,21 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <JFXButton layoutX="38.0" layoutY="384.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #FFCCCC;" text="Create" textFill="RED">
+                  <JFXButton fx:id="createButton" layoutX="300.0" layoutY="380.0" onAction="#handleCreateButton" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #0224ae;" text="Create" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <Label layoutX="52.0" layoutY="180.0" text="Credit Status">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
                   <Label layoutX="58.0" layoutY="251.0" text="Address">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <JFXTextArea layoutX="191.0" layoutY="223.0" maxWidth="250.0" minWidth="208.0" prefHeight="75.0" prefWidth="208.0" promptText="ใส่ที่อยู่" />
-                  <JFXTextField layoutX="191.0" layoutY="55.0" promptText="ใส่ ชื่อ" />
-                  <JFXTextField layoutX="191.0" layoutY="85.0" promptText="ใส่ นามสกุล" />
-                  <JFXTextField layoutX="191.0" layoutY="115.0" promptText="ใส่อีเมล์" />
-                  <JFXTextField layoutX="191.0" layoutY="145.0" promptText="ใส่เบอร์โทรศัพท์" />
-                  <JFXTextField layoutX="191.0" layoutY="175.0" promptText="ใส่ credit ลูกค้า" />
-                  <JFXButton layoutX="280.0" layoutY="384.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #FFCCCC;" text="Cancel" textFill="RED">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </JFXButton>
+                  <JFXTextArea fx:id="addressTextField" layoutX="191.0" layoutY="223.0" maxWidth="250.0" minWidth="208.0" prefHeight="75.0" prefWidth="208.0" promptText="ใส่ที่อยู่" />
+                  <JFXTextField fx:id="firstNameTextField" layoutX="191.0" layoutY="55.0" promptText="A-Za-z, can't have space" />
+                  <JFXTextField fx:id="lastNameTextField" layoutX="191.0" layoutY="85.0" promptText="A-Za-z, can't have space" />
+                  <JFXTextField fx:id="emailTextField" layoutX="191.0" layoutY="115.0" promptText="Ex. name@provider.com" />
+                  <JFXTextField fx:id="phoneNumberTextField" layoutX="191.0" layoutY="145.0" promptText="Customer's tel number" text="10 digits" />
                </children>
             </Pane>
             <ImageView fitHeight="217.0" fitWidth="189.0" layoutX="57.0" layoutY="206.0" pickOnBounds="true" preserveRatio="true">

@@ -8,11 +8,11 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import model.DBConnecter;
+import model.PageManager;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
-public class RegisterUiController {
+public class RegisterController {
     @FXML
     protected JFXTextField firstNameTextField;
     private String firstName;
@@ -46,7 +46,7 @@ public class RegisterUiController {
     @FXML
     protected ArrayList<Node> fxmlList;
 
-    private DBConnecter database = new DBConnecter();
+    private DBConnecter database = DBConnecter.getInstance();
 
 
     @FXML
@@ -64,7 +64,7 @@ public class RegisterUiController {
 
     @FXML
     protected void handleBackButton(ActionEvent e) {
-        PageSwapper.swapPage(e, "LoginView.fxml");
+        PageManager.swapPage(e, "LoginView.fxml");
     }
 
     @FXML

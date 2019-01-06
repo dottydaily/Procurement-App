@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXDatePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-image: url(/image/pattern-yellow.jpg);" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegisterUiController">
+<StackPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-image: url(/image/pattern-yellow.jpg);" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreatePRController">
    <children>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF; -fx-opacity: 0.85;" />
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
@@ -56,19 +56,18 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="300.0" text="Please select one method below." GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Label fx:id="customerNameLabel" contentDisplay="CENTER" prefHeight="17.0" prefWidth="300.0" text="Please select one method below." GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                         <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="17.0" prefWidth="100.0" text="Date of Request" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <JFXTextField maxWidth="-Infinity" prefWidth="300.0" promptText="dd/mm/yyyy (Ex. 02/07/2018)" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <JFXButton fx:id="createButton1" buttonType="RAISED" defaultButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleCreateButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #009b61;" text="More Details" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="moreDetailButton" buttonType="RAISED" disable="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleMoreDetailButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #009b61;" text="More Details" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton fx:id="createButton11" buttonType="RAISED" defaultButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleCreateButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #c16501;" text="Find customer" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="findCustomerButton" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleFindCustomerButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #c16501;" text="Find customer" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -76,7 +75,7 @@
                               <Insets left="10.0" />
                            </GridPane.margin>
                         </JFXButton>
-                        <JFXButton fx:id="createButton111" buttonType="RAISED" defaultButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleCreateButton" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #b3049f;" text="Create new customer" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <JFXButton fx:id="createCustomerButton" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleCreateCustomerButton" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #b3049f;" text="Create new customer" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -84,15 +83,19 @@
                               <Insets left="130.0" />
                            </GridPane.margin>
                         </JFXButton>
+                        <JFXDatePicker fx:id="dateOfRequestDatePicker" promptText="Choose date of PR " GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                        </JFXDatePicker>
                      </children>
                   </GridPane>
-                  <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                  <TableView fx:id="productTableView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                     <columns>
-                      <TableColumn prefWidth="70.0" text="No." />
-                      <TableColumn prefWidth="100.0" text="Product ID" />
-                        <TableColumn prefWidth="330.0" text="Product Name" />
-                        <TableColumn prefWidth="120.0" text="Worst Price" />
-                        <TableColumn text="Amount" />
+                      <TableColumn fx:id="productIDTableColumn" prefWidth="100.0" text="Product ID" />
+                        <TableColumn fx:id="productNameTableColumn" prefWidth="320.0" text="Product Name" />
+                        <TableColumn fx:id="pricePerPieceTableColumn" prefWidth="200.0" text="Price Per Piece" />
+                        <TableColumn fx:id="amountTableColumn" text="Amount" />
                     </columns>
                   </TableView>
                   <GridPane maxWidth="-Infinity" prefHeight="100.0" prefWidth="615.0" GridPane.halignment="CENTER" GridPane.rowIndex="3">
@@ -105,7 +108,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXButton fx:id="createButton2" buttonType="RAISED" defaultButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleCreateButton" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: #a62329;" text="Add from Product history" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="addFromProductHistoryButton" buttonType="RAISED" disable="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleAddFromProductHistoryButton" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: #a62329;" text="Add from Product history" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -123,7 +126,7 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <JFXButton fx:id="createButton21" buttonType="RAISED" defaultButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleCreateButton" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: #23a69d;" text="Add a new product manually" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <JFXButton fx:id="addANewProductManually" buttonType="RAISED" disable="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleAddANewProductManually" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: #23a69d;" text="Add a new product manually" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -135,12 +138,12 @@
                   </GridPane>
                </children>
             </GridPane>
-            <JFXButton fx:id="createButton" buttonType="RAISED" defaultButton="true" layoutX="640.0" layoutY="533.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleCreateButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0224ae;" text="Create" textFill="WHITE">
+            <JFXButton fx:id="createButton" buttonType="RAISED" defaultButton="true" disable="true" layoutX="640.0" layoutY="533.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleCreateButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0224ae;" text="Create" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="backButton" buttonType="RAISED" defaultButton="true" layoutX="50.0" layoutY="533.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleBackButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #FFCCCC;" text="&lt;&lt; Back" textFill="RED">
+            <JFXButton fx:id="backButton" buttonType="RAISED" cancelButton="true" layoutX="50.0" layoutY="533.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleBackButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #FFCCCC;" text="&lt;&lt; Back" textFill="RED">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
