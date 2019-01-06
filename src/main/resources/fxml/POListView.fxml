@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-image: url(/image/pattern-yellow.jpg);" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.POListController">
+   <children>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF; -fx-opacity: 0.85;" />
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
+         <children>
+            <Pane layoutX="50.0" layoutY="100.0" prefHeight="450.0" prefWidth="700.0" style="-fx-background-color: #fff7e6;">
+               <effect>
+                  <DropShadow height="5.0" radius="2.0" width="5.0" />
+               </effect>
+               <children>
+                  <TableView fx:id="poTableView" layoutX="15.0" layoutY="15.0" onMouseClicked="#clickPoDetail" prefHeight="420.0" prefWidth="670.0">
+                    <columns>
+                      <TableColumn fx:id="poIdTableColumn" maxWidth="87.0" minWidth="48.0" prefWidth="60.0" text="PO ID" />
+                      <TableColumn fx:id="prIdTableColumn" maxWidth="100.0" minWidth="60.0" prefWidth="60.0" text="PR ID" />
+                        <TableColumn fx:id="quotationIdTableColumn" maxWidth="119.0" minWidth="60.0" text="Quotation ID" />
+                        <TableColumn fx:id="firstNameTableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="First Name" />
+                        <TableColumn fx:id="lastNameTableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="75.0" text="Last Name" />
+                        <TableColumn fx:id="sendDateTableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="75.0" text="Send Date" />
+                        <TableColumn fx:id="totalCostTableColumn" prefWidth="70.0" text="Total Cost" />
+                        <TableColumn fx:id="statusTableColumn" prefWidth="100.0" text="Status" />
+                    </columns>
+                  </TableView>
+               </children>
+            </Pane>
+            <Label layoutX="371.0" layoutY="44.0" text="PO List" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="backButton" buttonType="RAISED" cancelButton="true" layoutX="42.0" layoutY="557.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleBackButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #FFCCCC;" text="&lt;&lt; Back" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-image: url(/image/pattern-yellow.jpg);" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF; -fx-opacity: 0.85;" />
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
+         <children>
+            <Pane layoutX="301.0" layoutY="100.0" prefHeight="434.0" prefWidth="450.0" style="-fx-background-color: #fff7e6;">
+               <effect>
+                  <DropShadow height="5.0" radius="2.0" width="5.0" />
+               </effect>
+               <children>
+                  <Label layoutX="51.0" layoutY="55.0" prefWidth="200.0" text="FirstName">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="52.0" layoutY="85.0" prefWidth="200.0" text="LastName">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="52.0" layoutY="115.0" prefWidth="200.0" text="Email">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="52.0" layoutY="145.0" prefHeight="20.0" prefWidth="200.0" text="PhoneNumber">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="52.0" layoutY="175.0" prefWidth="200.0" text="Credit Status">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="58.0" layoutY="251.0" text="Address">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <JFXTextArea fx:id="addressTextArea" editable="false" layoutX="191.0" layoutY="225.0" maxWidth="250.0" minWidth="208.0" prefHeight="75.0" prefWidth="208.0" promptText="ใส่ที่อยู่" />
+                  <Label fx:id="firstNameLabel" layoutX="191.0" layoutY="55.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" prefWidth="200.0" text="Label" />
+                  <Label fx:id="lastNameLabel" layoutX="191.0" layoutY="85.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" prefWidth="200.0" text="Label" />
+                  <Label fx:id="emailLabel" layoutX="191.0" layoutY="115.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" prefWidth="200.0" text="Label" />
+                  <Label fx:id="phoneNumberLabel" layoutX="191.0" layoutY="145.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" prefWidth="200.0" text="Label" />
+                  <Label fx:id="creditStatusLabel" layoutX="191.0" layoutY="175.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" prefWidth="200.0" text="Label" />
+               </children>
+            </Pane>
+            <ImageView fitHeight="217.0" fitWidth="189.0" layoutX="57.0" layoutY="206.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/information.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="458.0" layoutY="50.0" text="Customer Detail" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
