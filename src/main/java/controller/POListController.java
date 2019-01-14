@@ -50,8 +50,8 @@ public class POListController implements Observer {
             resultSet = database.getResultSet(
                     "SELECT\n" +
                     "    po.po_id,\n" +
-                    "    po.quotation_id,\n" +
                     "    po.pr_id,\n" +
+                    "    po.quotation_id,\n" +
                     "    customer_list.customer_firstname,\n" +
                     "    customer_list.customer_lastname,\n" +
                     "    po.send_date,\n" +
@@ -67,8 +67,8 @@ public class POListController implements Observer {
         }
 
         poIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("poId"));
-        quotationIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("quotationId"));
         prIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("prId"));
+        quotationIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("quotationId"));
         firstNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         sendDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("sendDate"));
@@ -105,6 +105,8 @@ public class POListController implements Observer {
     protected void clickPoDetail(MouseEvent event) {
         if (event.getClickCount() == 2) {
             selectedPoDetail = poTableView.getSelectionModel().getSelectedItem();
+            System.out.println(selectedPoDetail.getFirstName() + selectedPoDetail.getLastName());
+            System.out.println(">>> " + selectedPoDetail.getPrId() + " " + selectedPoDetail.getQuotationId() + " " + selectedPoDetail.getPoId());
             AcceptPOController controller = new AcceptPOController(this);
             PageManager.newWindow("AcceptPOView.fxml", "Confirm PO", true, controller);
         }

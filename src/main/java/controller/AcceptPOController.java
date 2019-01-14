@@ -56,9 +56,9 @@ public class AcceptPOController extends Observable {
     private PODetail selectedPoDetail;
     private ArrayList<Stage> popUpStages = new ArrayList<>();
 
-    public AcceptPOController(Object previousController) {
-        addObserver((POListController) previousController);
-        selectedPoDetail = ((POListController) previousController).getSelectedPoDetail();
+    public AcceptPOController(POListController previousController) {
+        addObserver(previousController);
+        selectedPoDetail = previousController.getSelectedPoDetail();
     }
 
     @FXML
