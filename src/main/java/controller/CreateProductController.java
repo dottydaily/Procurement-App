@@ -40,29 +40,33 @@ public class CreateProductController extends Observable {
                 || amountTextField.getText().isEmpty()) {
             PageManager.newAlert("Create product error!"
                     , "Please fill all of information.", Alert.AlertType.ERROR);
-        }
+        } else if (pricePerPieceTextField.getText().matches("\\d+") &&
+                    pricePerPieceTextField.getText().matches("\\d+")){
+            String productName = productNameTextField.getText();
+            String pricePerEach = DataChecker.copyNumber(pricePerPieceTextField.getText(), ' ');
+            String amount = DataChecker.copyNumber(amountTextField.getText(), ' ');
 
-        String productName = productNameTextField.getText();
-        String pricePerEach = DataChecker.copyNumber(pricePerPieceTextField.getText(), ' ');
-        String amount = DataChecker.copyNumber(amountTextField.getText(), ' ');
+            if (productName == null || pricePerEach == null || amount == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                PageManager.newAlert("Create product error!"
+                        , "Invalid information.", Alert.AlertType.ERROR);
+            }
+            else {
+                Product product = database.insertProductData(productName, pricePerEach, amount);
+                System.out.println("DONE UPDATE DATA!");
 
-        if (productName == null || pricePerEach == null || amount == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+                System.out.println(product.getName());
+                System.out.println(product.getPricePerEach());
+                System.out.println(product.getAmount());
+
+                PageManager.newAlert("Register complete!"
+                        , "Register product complete! You can add it again.", Alert.AlertType.INFORMATION);
+
+                notifyObservers(product);
+            }
+        } else {
             PageManager.newAlert("Create product error!"
-                    , "Invalid information.", Alert.AlertType.ERROR);
-        }
-        else {
-            Product product = database.insertProductData(productName, pricePerEach, amount);
-            System.out.println("DONE UPDATE DATA!");
-
-            System.out.println(product.getName());
-            System.out.println(product.getPricePerEach());
-            System.out.println(product.getAmount());
-
-            PageManager.newAlert("Register complete!"
-                    , "Register product complete! You can add it again.", Alert.AlertType.INFORMATION);
-
-            notifyObservers(product);
+                    , "Price or amount must be number.", Alert.AlertType.ERROR);
         }
     }
 

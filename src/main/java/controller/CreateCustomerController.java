@@ -46,37 +46,37 @@ public class CreateCustomerController extends Observable {
          || addressTextField.getText().isEmpty()) {
             PageManager.newAlert("Create customer error!"
                     , "Please fill all of information.", Alert.AlertType.ERROR);
-        }
+        } else {
+            String firstName = DataChecker.copyWithChecking(firstNameTextField.getText(), ' ', true);
+            String lastName = DataChecker.copyWithChecking(lastNameTextField.getText(), ' ', true);
+            String email = DataChecker.copyWithChecking(emailTextField.getText(), ' ', false);
+            String phoneNumber = DataChecker.copyNumber(phoneNumberTextField.getText(), ' ');
+            String address = addressTextField.getText();
 
-        String firstName = DataChecker.copyWithChecking(firstNameTextField.getText(), ' ', true);
-        String lastName = DataChecker.copyWithChecking(lastNameTextField.getText(), ' ', true);
-        String email = DataChecker.copyWithChecking(emailTextField.getText(), ' ', false);
-        String phoneNumber = DataChecker.copyNumber(phoneNumberTextField.getText(), ' ');
-        String address = addressTextField.getText();
+            if (firstName == null || lastName == null || email == null || phoneNumber == null || address == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                PageManager.newAlert("Create customer error!"
+                        , "Invalid information.", Alert.AlertType.ERROR);
+            }
+            else {
+                Customer customer = database.insertCustomerData(firstName, lastName, email, address
+                        , "Good", phoneNumber, "5000");
+                System.out.println("DONE UPDATE DATA!");
 
-        if (firstName == null || lastName == null || email == null || phoneNumber == null || address == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            PageManager.newAlert("Create customer error!"
-                    , "Invalid information.", Alert.AlertType.ERROR);
-        }
-        else {
-            Customer customer = database.insertCustomerData(firstName, lastName, email, address
-                    , "Good", phoneNumber, "5000");
-            System.out.println("DONE UPDATE DATA!");
+                System.out.println(firstName);
+                System.out.println(lastName);
+                System.out.println(email);
+                System.out.println(phoneNumber);
+                System.out.println(address);
 
-            System.out.println(firstName);
-            System.out.println(lastName);
-            System.out.println(email);
-            System.out.println(phoneNumber);
-            System.out.println(address);
+                Stage stage = (Stage) createButton.getScene().getWindow();
+                stage.close();
 
-            Stage stage = (Stage) createButton.getScene().getWindow();
-            stage.close();
+                PageManager.newAlert("Register complete!"
+                        , "Register customer complete! back to previous page.", Alert.AlertType.INFORMATION);
 
-            PageManager.newAlert("Register complete!"
-                    , "Register customer complete! back to previous page.", Alert.AlertType.INFORMATION);
-
-            notifyObservers(customer);
+                notifyObservers(customer);
+            }
         }
     }
 
