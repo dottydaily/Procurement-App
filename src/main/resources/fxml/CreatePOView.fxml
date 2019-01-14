@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXDatePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -111,8 +111,8 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <JFXTextField fx:id="sendDateTextField" GridPane.columnIndex="1" />
                         <Label fx:id="totalPriceLabel" text="0 Baht." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <JFXDatePicker fx:id="sendDateDatePicker" editable="false" promptText="Choose send date of PO" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                </children>

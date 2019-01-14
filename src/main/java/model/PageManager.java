@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -35,17 +36,25 @@ public class PageManager {
         }
     }
 
-    public static void newWindow(String fxmlName, String title) {
+    public static Stage newWindow(String fxmlName, String title, Boolean isWait) {
         FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/fxml/"+ fxmlName));
 
         Stage stage = createNewWindowStage(title, loader, fxmlName);
 
         stage.setX(100);
         stage.setY(100);
-        stage.show();
+
+        if (isWait) {
+            stage.showAndWait();
+        }
+        else {
+            stage.show();
+        }
+
+        return stage;
     }
 
-    public static void newWindow(String fxmlName, String title, Object controller) {
+    public static Stage newWindow(String fxmlName, String title, Boolean isWait, Object controller) {
         FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/fxml/"+ fxmlName));
         loader.setController(controller);
 
@@ -53,7 +62,16 @@ public class PageManager {
 
         stage.setX(100);
         stage.setY(100);
-        stage.show();
+
+        if (isWait) {
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        }
+        else {
+            stage.show();
+        }
+
+        return stage;
     }
 
     private static Stage createNewWindowStage(String title, FXMLLoader loader, String fxmlName) {

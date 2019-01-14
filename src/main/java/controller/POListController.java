@@ -51,7 +51,7 @@ public class POListController implements Observer {
                     "SELECT\n" +
                     "    po.po_id,\n" +
                     "    po.quotation_id,\n" +
-                    "    quotation_list.pr_id,\n" +
+                    "    po.pr_id,\n" +
                     "    customer_list.customer_firstname,\n" +
                     "    customer_list.customer_lastname,\n" +
                     "    po.send_date,\n" +
@@ -106,7 +106,7 @@ public class POListController implements Observer {
         if (event.getClickCount() == 2) {
             selectedPoDetail = poTableView.getSelectionModel().getSelectedItem();
             AcceptPOController controller = new AcceptPOController(this);
-            PageManager.newWindow("AcceptPOView.fxml", "Confirm PO", controller);
+            PageManager.newWindow("AcceptPOView.fxml", "Confirm PO", true, controller);
         }
     }
 

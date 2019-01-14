@@ -22,14 +22,14 @@
                <children>
                   <TableView fx:id="prDetailTableView" layoutX="15.0" layoutY="15.0" onMouseClicked="#clickPRDetail" prefHeight="420.0" prefWidth="670.0">
                     <columns>
-                        <TableColumn fx:id="pRIdTableColumn" maxWidth="80.0" minWidth="60.0" prefWidth="63.0" text="PR ID" />
-                      <TableColumn fx:id="customerIdTableColumn" maxWidth="87.0" minWidth="60.0" prefWidth="87.0" text="Customer ID" />
-                      <TableColumn fx:id="firstNameTableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="75.0" text="First Name" />
-                        <TableColumn fx:id="lastNameTableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="75.0" text="Last Name" />
-                        <TableColumn fx:id="emailTableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="75.0" text="Email" />
-                        <TableColumn fx:id="addressTableColumn" prefWidth="75.0" text="Address" />
-                        <TableColumn fx:id="telTableColumn" prefWidth="75.0" text="Tel" />
-                        <TableColumn fx:id="statusTableColumn" prefWidth="75.0" text="Status" />
+                        <TableColumn fx:id="pRIdTableColumn" maxWidth="80.0" minWidth="50.0" prefWidth="50.0" text="PR ID" />
+                      <TableColumn fx:id="customerIdTableColumn" maxWidth="87.0" minWidth="80.0" text="Customer ID" />
+                      <TableColumn fx:id="firstNameTableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="First Name" />
+                        <TableColumn fx:id="lastNameTableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Last Name" />
+                        <TableColumn fx:id="emailTableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Email" />
+                        <TableColumn fx:id="addressTableColumn" minWidth="75.0" prefWidth="75.0" text="Address" />
+                        <TableColumn fx:id="telTableColumn" minWidth="75.0" prefWidth="75.0" text="Tel" />
+                        <TableColumn fx:id="statusTableColumn" minWidth="80.0" prefWidth="90.0" text="Cust_Status" />
                     </columns>
                   </TableView>
                </children>
@@ -44,6 +44,11 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </JFXButton>
+            <Label fx:id="descriptionLabel" layoutX="526.0" layoutY="565.0" text="Double-Click on the row to get its item." textFill="RED">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

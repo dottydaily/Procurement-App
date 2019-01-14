@@ -44,6 +44,11 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </JFXButton>
+            <Label layoutX="526.0" layoutY="561.0" text="Double-Click on the row to get its item." textFill="RED">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

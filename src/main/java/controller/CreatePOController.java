@@ -1,8 +1,8 @@
 package controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
-import com.sun.org.apache.xpath.internal.operations.Quo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,12 +12,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import model.*;
 
-import javax.xml.crypto.Data;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -43,6 +44,8 @@ public class CreatePOController implements Observer {
 
     @FXML
     protected JFXTextField sendDateTextField;
+    @FXML
+    protected JFXDatePicker sendDateDatePicker;
 
     @FXML
     protected JFXButton findQuotationButton;
@@ -58,7 +61,7 @@ public class CreatePOController implements Observer {
     private QuotationDetail selectedQuationDetail;
     private ObservableList<Product> products = FXCollections.observableArrayList();
     private String pOID = "00000";
-    private Product selectedProduct;
+    private ArrayList<Stage> popUpStages = new ArrayList<>();
 
     @FXML
     protected void initialize() {
@@ -95,31 +98,39 @@ public class CreatePOController implements Observer {
     @FXML
     protected void handleFindQuotationButton(ActionEvent e) {
         QuotationListController controller = new QuotationListController(this);
-        PageManager.newWindow("QuotationListView.fxml", "Choose Quotation from this list", controller);
+        PageManager.newWindow("QuotationListView.fxml", "Choose Quotation from this list", true, controller);
     }
 
     @FXML
     protected void handleCustomerMoreDetailButton(ActionEvent e) {
         CustomerDetailController controller = new CustomerDetailController(this);
-        PageManager.newWindow("CustomerDetailView.fxml", "Customer detail", controller);
+        popUpStages.add(PageManager.newWindow("CustomerDetailView.fxml", "Customer detail", false, controller));
     }
 
     @FXML
     protected void handleCreateButton(ActionEvent e) {
-        if (sendDateTextField.getText().isEmpty()) {
-            PageManager.newAlert("Create PO error", "Please fill send date of PO", Alert.AlertType.ERROR);
+        LocalDate date = sendDateDatePicker.getValue();
+        if (date == null) {
+            PageManager.newAlert("Create PO error", "Please choose send date of PO", Alert.AlertType.ERROR);
+        }
+        else if (date.isBefore(LocalDate.now())) {
+            PageManager.newAlert("Create PO error", "Date mustn't before today. "
+                    + "[" + LocalDate.now().toString() + "]", Alert.AlertType.ERROR);
         }
         else {
-            String sendDate = DataChecker.copyNumberWIthReplace(sendDateTextField.getText(), "/", "-");
-            database.insertPO(selectedQuationDetail.getQuotationId(), sendDate);
+            String sendDate = date.toString();
+            database.insertPO(selectedQuationDetail.getPurchaseRequestId()
+                    , selectedQuationDetail.getQuotationId(), sendDate);
+            PageManager.newAlert("Create PO success", "Complete register PO", Alert.AlertType.INFORMATION);
+            handleBackButton(e);
         }
-
-        PageManager.newAlert("Create PO success", "Complete register PO", Alert.AlertType.INFORMATION);
-        handleBackButton(e);
     }
 
     @FXML
     protected void handleBackButton(ActionEvent e) {
+        for (Stage stage : popUpStages) {
+            stage.close();
+        }
         PageManager.swapPage(e, "SelectMenuView.fxml");
     }
 

@@ -43,6 +43,11 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </JFXButton>
+            <Label fx:id="descriptionLabel" layoutX="292.0" layoutY="560.0" text="Double Click to select Quotation." textFill="RED">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

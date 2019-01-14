@@ -38,6 +38,11 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
+            <Label layoutX="262.0" layoutY="566.0" text="Double-Click on the row to select customer." textFill="RED">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

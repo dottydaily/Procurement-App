@@ -54,6 +54,7 @@ public class AcceptPOController extends Observable {
     private ObservableList<Product> products = FXCollections.observableArrayList();
     private ResultSet resultSet;
     private PODetail selectedPoDetail;
+    private ArrayList<Stage> popUpStages = new ArrayList<>();
 
     public AcceptPOController(Object previousController) {
         addObserver((POListController) previousController);
@@ -95,11 +96,15 @@ public class AcceptPOController extends Observable {
         productTableView.setItems(products);
 
         customerNameLabel.setText(selectedPoDetail.getCustomer().getFirstName() + " " +
-                selectedPoDetail.getCustomer().getFirstName());
+                selectedPoDetail.getCustomer().getLastName());
         prIdLabel.setText(selectedPoDetail.getPrId());
         quotationIdLabel.setText(selectedPoDetail.getQuotationId());
         poIdLabel.setText(selectedPoDetail.getPoId());
         sendDateLabel.setText(selectedPoDetail.getSendDate());
+
+        if (selectedPoDetail.getStatus().equals("Complete")) {
+            orderCompleteButton.setDisable(true);
+        }
     }
 
     public Customer getCustomerFromPoDetail() {
@@ -109,12 +114,13 @@ public class AcceptPOController extends Observable {
     @FXML
     protected void handleMoreDetailButton(ActionEvent e) {
         CustomerDetailController controller = new CustomerDetailController(this);
-        PageManager.newWindow("CustomerDetailView.fxml", "Customer detail", controller);
+        popUpStages.add(PageManager.newWindow("CustomerDetailView.fxml", "Customer detail", false, controller));
     }
 
     @FXML
     protected void handleOrderCompleteButton(ActionEvent e) {
-        database.updatePoStatus(selectedPoDetail.getPoId(), "Complete");
+        database.updatePoStatus(selectedPoDetail.getPoId()
+                , selectedPoDetail.getPrId(), selectedPoDetail.getQuotationId(), "Complete");
         notifyObservers();
         PageManager.newAlert("Confirm PO Success", "This Purchase Order has confirmed. Order Complete."
                 , Alert.AlertType.INFORMATION);
@@ -123,6 +129,10 @@ public class AcceptPOController extends Observable {
 
     @FXML
     protected void handleCloseButton(ActionEvent e) {
+        for (Stage stage : popUpStages) {
+            stage.close();
+        }
+
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }

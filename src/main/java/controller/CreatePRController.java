@@ -17,6 +17,7 @@ import model.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -58,6 +59,7 @@ public class CreatePRController implements Observer {
     private Customer selectCustomer;
     private ObservableList<Product> products = FXCollections.observableArrayList();
     private String prID = "00000";
+    private ArrayList<Stage> popUpStages = new ArrayList<>();
 
     @FXML
     protected void initialize() {
@@ -90,43 +92,47 @@ public class CreatePRController implements Observer {
     @FXML
     protected void handleFindCustomerButton(ActionEvent e) {
         CustomerListController controller = new CustomerListController(this);
-        PageManager.newWindow("CustomerListView.fxml", "Choose customer from this list", controller);
+        PageManager.newWindow("CustomerListView.fxml", "Choose customer from this list", true, controller);
     }
 
     @FXML
     protected void handleCreateCustomerButton(ActionEvent e) {
         CreateCustomerController controller = new CreateCustomerController(this);
-        PageManager.newWindow("CreateCustomerView.fxml", "Create customer", controller);
+        PageManager.newWindow("CreateCustomerView.fxml", "Create customer", true, controller);
     }
 
     @FXML
     protected void handleMoreDetailButton(ActionEvent e) {
         CustomerDetailController controller = new CustomerDetailController(this);
-        PageManager.newWindow("CustomerDetailView.fxml", "Customer detail", controller);
+        popUpStages.add(PageManager.newWindow("CustomerDetailView.fxml", "Customer detail", false, controller));
     }
 
     @FXML
     protected void handleAddFromProductHistoryButton() {
         ProductListController controller = new ProductListController(this);
-        PageManager.newWindow("ProductListView.fxml", "Product list", controller);
+        popUpStages.add(PageManager.newWindow("ProductListView.fxml", "Product list", false, controller));
     }
 
     @FXML
     protected void handleAddANewProductManually() {
         CreateProductController controller = new CreateProductController(this);
-        PageManager.newWindow("CreateProductView.fxml", "Create product", controller);
+        popUpStages.add(PageManager.newWindow("CreateProductView.fxml", "Create product", false, controller));
     }
 
     @FXML
     protected void handleCreateButton(ActionEvent e) {
         LocalDate date = dateOfRequestDatePicker.getValue();
         if (date == null) {
-            PageManager.newAlert("Create PR error", "Please fill date of request", Alert.AlertType.ERROR);
+            PageManager.newAlert("Create PR error", "Please choose date of request.", Alert.AlertType.ERROR);
+        }
+        else if (date.isAfter(LocalDate.now())) {
+            PageManager.newAlert("Create PR error", "Date mustn't after today. "
+                    + "[" + LocalDate.now().toString() + "]", Alert.AlertType.ERROR);
         }
         else {
             System.out.println(date);
             for (Product p : products) {
-                database.insertPR(prID, p.getId(), date.toString(), selectCustomer.getId());
+                database.insertPR(prID, p.getId(), date.toString(), selectCustomer.getId(), "Incomplete");
             }
 
             PageManager.newAlert("Create PR success", "Complete register PR", Alert.AlertType.INFORMATION);
@@ -136,6 +142,9 @@ public class CreatePRController implements Observer {
 
     @FXML
     protected void handleBackButton(ActionEvent e) {
+        for (Stage s : popUpStages) {
+            s.close();
+        }
         PageManager.swapPage(e, "SelectMenuView.fxml");
     }
 

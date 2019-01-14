@@ -12,10 +12,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import model.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -59,6 +61,7 @@ public class CreateQuotationController implements Observer {
     private ObservableList<Product> products = FXCollections.observableArrayList();
     private String quotationID = "00000";
     private Product selectedProduct;
+    private ArrayList<Stage> popUpStages = new ArrayList<>();
 
     @FXML
     protected void initialize() {
@@ -95,13 +98,13 @@ public class CreateQuotationController implements Observer {
     @FXML
     protected void handleFindPRButton(ActionEvent e) {
         PRListController controller = new PRListController(this);
-        PageManager.newWindow("PRListView.fxml", "Choose PR from this list", controller);
+        PageManager.newWindow("PRListView.fxml", "Choose PR from this list", true, controller);
     }
 
     @FXML
     protected void handleCustomerMoreDetailButton(ActionEvent e) {
         CustomerDetailController controller = new CustomerDetailController(this);
-        PageManager.newWindow("CustomerDetailView.fxml", "Customer detail", controller);
+        popUpStages.add(PageManager.newWindow("CustomerDetailView.fxml", "Customer detail", false, controller));
     }
 
     @FXML
@@ -160,17 +163,32 @@ public class CreateQuotationController implements Observer {
             totalCost += p.getPricePerEach()*p.getAmount();
         }
 
-        for (Product p : products) {
-            database.insertQuotation(quotationID, selectedPRDetail.getPurchaseRequestId(), p.getId()
-                    , selectedPRDetail.getDate(), selectedPRDetail.getCustomerID(), Integer.toString(totalCost));
+        if (database.hasValueInTable("quotation_list", "pr_id"
+                , selectedPRDetail.getPurchaseRequestId())) {
+            for (Product p : products) {
+                database.updateQuotation(selectedPRDetail.getPurchaseRequestId(), p.getId(), Integer.toString(totalCost));
+            }
+
+            PageManager.newAlert("Update Quotation success", "Complete update an existing Quotation"
+                    , Alert.AlertType.INFORMATION);
+        } else {
+            for (Product p : products) {
+                database.insertQuotation(quotationID, selectedPRDetail.getPurchaseRequestId(), p.getId()
+                        , selectedPRDetail.getDate(), selectedPRDetail.getCustomerID(), Integer.toString(totalCost));
+            }
+
+            PageManager.newAlert("Create Quotation success", "Complete register a new Quotation"
+                    , Alert.AlertType.INFORMATION);
         }
 
-        PageManager.newAlert("Create Quotation success", "Complete register Quotation", Alert.AlertType.INFORMATION);
         handleBackButton(e);
     }
 
     @FXML
     protected void handleBackButton(ActionEvent e) {
+        for (Stage stage : popUpStages) {
+            stage.close();
+        }
         PageManager.swapPage(e, "SelectMenuView.fxml");
     }
 
@@ -184,7 +202,7 @@ public class CreateQuotationController implements Observer {
 
             selectedPRDetail = (PRDetail) arg;
             selectedCustomer = new Customer(selectedPRDetail.getFirstName(), selectedPRDetail.getLastName(), selectedPRDetail.getEmail()
-                    , selectedPRDetail.getAddress(), selectedPRDetail.getStatus(), selectedPRDetail.getPhoneNumber(), selectedPRDetail.getLimit());
+                    , selectedPRDetail.getAddress(), selectedPRDetail.getCustomerStatus(), selectedPRDetail.getPhoneNumber(), selectedPRDetail.getLimit());
             selectedCustomer.setId(selectedPRDetail.getCustomerID());
 
             customerNameLabel.setText(selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());

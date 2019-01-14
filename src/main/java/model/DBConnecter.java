@@ -29,12 +29,13 @@ public class DBConnecter {
     }
 
     public Boolean hasValueInTable(String tableName, String rowName, String checkString) {
-        String query = "SELECT " + rowName + "FROM " + tableName;
+        String query = String.format("SELECT %s FROM %s WHERE %s.%s = %s"
+                , rowName, tableName, tableName, rowName, checkString);
 
         try {
             ResultSet resultSet = getResultSet(query);
 
-            if (resultSet.wasNull()) {
+            if (!resultSet.next()) {
                 return false;
             }
         } catch (SQLException sqlEx) {
@@ -56,13 +57,7 @@ public class DBConnecter {
         query = query + String.format("'%s', '%s', '%s', '%s', '%s', '%s')",
                 username, password, firstName, lastName, email, phoneNumber);
 
-        System.out.println(query);
-        try {
-            statement = connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            statement.executeUpdate();
-        } catch (SQLException sqlEx) {
-            sqlEx.printStackTrace();
-        }
+        doQuery(query);
     }
 
     public Customer insertCustomerData(String firstName, String lastName, String email, String address,
@@ -136,60 +131,58 @@ public class DBConnecter {
         }
     }
 
-    public void updatePoStatus(String poId, String status) {
-        System.out.println(poId + status);
-        String query = String.format("UPDATE po SET po_status = '%s' WHERE po_id = %s", status, poId);
-
-        try {
-            statement = connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            statement.executeUpdate();
-        } catch (SQLException squEx) {
-            squEx.printStackTrace();
-            System.out.println("Update failed: po_id = " + poId);
-            System.out.println("By SQL Command : " + query);
-        }
-    }
-
-    public void insertPR(String prID, String productID, String date, String customerID) {
+    public void insertPR(String prID, String productID, String date, String customerID, String status) {
         String query = "INSERT INTO pr VALUES (NULL, ";
-        query = query + String.format("'%s', '%s', '%s', '%s')",
-                prID, productID, date, customerID);
+        query = query + String.format("'%s', '%s', '%s', '%s', '%s')",
+                prID, productID, date, customerID, status);
 
-        System.out.println(query);
-        try {
-            statement = connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            statement.executeUpdate();
-        } catch (SQLException sqlEx) {
-            sqlEx.printStackTrace();
-        }
+        doQuery(query);
     }
 
     public void insertQuotation(String quotationID, String prID, String productID, String date
             , String customerID, String totalCost) {
         String query = "INSERT INTO quotation_list VALUES (NULL, ";
-        query = query + String.format("'%s', '%s', '%s', '%s', '%s', '%s')",
-                quotationID, prID, productID, date, customerID, totalCost);
+        query = query + String.format("'%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+                quotationID, prID, productID, date, customerID, totalCost, "Incomplete");
 
-        System.out.println(query);
-        try {
-            statement = connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            statement.executeUpdate();
-        } catch (SQLException sqlEx) {
-            sqlEx.printStackTrace();
-        }
+        doQuery(query);
     }
 
-    public void insertPO(String quotationID, String sendDate) {
-        String query = "INSERT INTO po VALUES (NULL, ";
-        query = query + String.format("'%s', '%s', '%s')",
-                quotationID, sendDate, "Incomplete");
+    public void updateQuotation(String prID, String productID, String totalCost) {
+        String query = String.format("Update quotation_list SET total_cost = %s\n" +
+                "WHERE quotation_list.pr_id = %s AND product_id = %s"
+                , totalCost, prID, productID);
 
+        doQuery(query);
+    }
+
+    public void insertPO(String prId, String quotationId, String sendDate) {
+        String query = "INSERT INTO po VALUES (NULL, ";
+        query = query + String.format("'%s', '%s', '%s', '%s')"
+                , prId, quotationId, sendDate, "Incomplete");
+
+        doQuery(query);
+    }
+
+    public void updatePoStatus(String poId, String prId, String quotationId, String status) {
+        System.out.println(poId + status);
+        String query = String.format("UPDATE po SET po_status = '%s' WHERE po_id = %s", status, poId);
+        doQuery(query);
+        query = String.format("UPDATE pr SET pr_status = '%s' WHERE pr_id = %s", status, prId);
+        doQuery(query);
+        query = String.format("UPDATE quotation_list SET quotation_status = '%s' WHERE quotation_id = %s"
+                , status, quotationId);
+        doQuery(query);
+    }
+
+    private void doQuery(String query) {
         System.out.println(query);
         try {
             statement = connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.executeUpdate();
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
+            System.out.println("ERROR BY SQL COMMAND : " + query);
         }
     }
 }

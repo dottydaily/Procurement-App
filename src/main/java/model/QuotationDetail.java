@@ -18,23 +18,22 @@ public class QuotationDetail {
     private int totalCost;
     private Customer customer;
 
-    public QuotationDetail(Quotation quotation, Customer customer) {
+    public QuotationDetail(int quotationId, int purchaseRequestId, String date
+            , int customerID, String firstName, String lastName, int totalCost) {
+        this.quotationId = String.format("%05d", quotationId);
+        this.purchaseRequestId = String.format("%05d", purchaseRequestId);
+        this.date = date;
+        this.customerID = String.format("%05d", customerID);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.totalCost = totalCost;
+
         DBConnecter database = DBConnecter.getInstance();
 
-        quotationId = quotation.getQuotationId();
-        purchaseRequestId = quotation.getPr_id();
-        date = quotation.getDate();
-        customerID = quotation.getCustomer_id();
-        firstName = customer.getFirstName();
-        lastName = customer.getLastName();
-        totalCost = quotation.getTotal_cost();
-        this.customer = customer;
-
         try {
-            ResultSet quotationResultSet = database.getResultSet(
+            ResultSet productResultSet = database.getResultSet(
                     "SELECT\n" +
-                            "   quotation_list.quotation_id,\n" +
-                            "   quotation_list.product_id,\n" +
+                            "   product_list.product_id,\n" +
                             "   product_list.product_name,\n" +
                             "   product_list.price_per_each,\n" +
                             "   product_list.product_amount\n" +
@@ -44,17 +43,25 @@ public class QuotationDetail {
                             "ON quotation_list.product_id = product_list.product_id\n" +
                             "AND quotation_list.quotation_id = " + quotationId);
 
-            while (quotationResultSet.next()) {
-                System.out.println("-----------"+quotationResultSet.getString(2)+"----------");
-
-                Product product = new Product(quotationResultSet.getString(3)
-                        , quotationResultSet.getString(4)
-                        , quotationResultSet.getString(5));
-                product.setId(quotationResultSet.getString(2));
+            while (productResultSet.next()) {
+                Product product = new Product(productResultSet.getString(2)
+                        , productResultSet.getString(3)
+                        , productResultSet.getString(4));
+                product.setId(productResultSet.getString(1));
 
                 products.add(product);
             }
 
+            ResultSet customerResultSet = database.getResultSet(
+                    "SELECT * From customer_list WHERE customer_list.customer_id = " + customerID);
+
+            if (customerResultSet.next()) {
+                customer = new Customer(customerResultSet.getString(2)
+                        , customerResultSet.getString(3), customerResultSet.getString(4)
+                        , customerResultSet.getString(5), customerResultSet.getString(6)
+                        , customerResultSet.getString(7), customerResultSet.getInt(8));
+                customer.setId(customerResultSet.getString(1));
+            }
         } catch (SQLException sqlE) {
             sqlE.printStackTrace();
         }
@@ -126,10 +133,5 @@ public class QuotationDetail {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-    }
-
-    @Override
-    public String toString() {
-        return "Quotation ID in Class QuotationDetail: " + quotationId;
     }
 }

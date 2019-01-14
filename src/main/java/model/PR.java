@@ -5,12 +5,14 @@ public class PR {
     private String productID;
     private String date;
     private String customerID;
+    private String prStatus;
 
-    public PR(String id, String productID, String date, String customerID) {
+    public PR(String id, String productID, String date, String customerID, String prStatus) {
         this.id = String.format("%05d", Integer.parseInt(id));
         this.productID = String.format("%05d", Integer.parseInt(productID));
         this.date = date;
         this.customerID = String.format("%05d", Integer.parseInt(customerID));
+        this.prStatus = prStatus;
     }
 
     public String getId() {
@@ -45,8 +47,16 @@ public class PR {
         this.customerID = customerID;
     }
 
+    public String getPrStatus() {
+        return prStatus;
+    }
+
+    public void setPrStatus(String prStatus) {
+        this.prStatus = prStatus;
+    }
+
     @Override
     public String toString() {
-        return String.format("%s %s %s %s", id, productID, customerID, date);
+        return String.format("%s %s %s %s %s", id, productID, customerID, date, prStatus);
     }
 }

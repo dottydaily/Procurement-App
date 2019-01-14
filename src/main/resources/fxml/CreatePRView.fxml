@@ -83,7 +83,7 @@
                               <Insets left="130.0" />
                            </GridPane.margin>
                         </JFXButton>
-                        <JFXDatePicker fx:id="dateOfRequestDatePicker" promptText="Choose date of PR " GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <JFXDatePicker fx:id="dateOfRequestDatePicker" editable="false" promptText="Choose date of PR " GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin>

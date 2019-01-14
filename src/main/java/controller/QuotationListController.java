@@ -5,6 +5,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -36,6 +38,8 @@ public class QuotationListController extends Observable {
     protected TableColumn<Quotation, String> lastNameTableColumn;
     @FXML
     protected TableColumn<Quotation, Integer> totalCostTableColumn;
+    @FXML
+    protected Label descriptionLabel;
 
     @FXML
     protected JFXButton backButton;
@@ -57,6 +61,8 @@ public class QuotationListController extends Observable {
     protected void initialize() {
         if (previousController instanceof CreatePOController) {
             backButton.setText("Close");
+        } else if (previousController instanceof SelectMenuController) {
+            descriptionLabel.setOpacity(0);
         }
 
         quotationDetails = getQuotationDetailList();
@@ -75,43 +81,36 @@ public class QuotationListController extends Observable {
     private ObservableList<QuotationDetail> getQuotationDetailList() {
         ObservableList<QuotationDetail> list = FXCollections.observableArrayList();
 
-        System.out.println("Hello");
         try {
-            ResultSet quotationResultSet = database.getResultSet("SELECT quotation_id, pr_id, product_id, date, customer_id, total_cost FROM quotation_list");
-            String lastQuotationID = null;
+            String query = "SELECT\n" +
+                    "    quotation_list.quotation_id,\n" +
+                    "    quotation_list.pr_id,\n" +
+                    "    quotation_list.date,\n" +
+                    "    quotation_list.customer_id,\n" +
+                    "    customer_list.customer_firstname,\n" +
+                    "    customer_list.customer_lastname,\n" +
+                    "    quotation_list.total_cost\n" +
+                    "FROM\n" +
+                    "    quotation_list\n" +
+                    "INNER JOIN customer_list ON quotation_list.customer_id = customer_list.customer_id\n";
+
+            if (previousController instanceof CreatePOController) {
+                query = query +
+                        "AND quotation_list.quotation_status = \"Incomplete\"\n" +
+                        "GROUP BY quotation_list.quotation_id";
+            } else if (previousController instanceof SelectMenuController) {
+                query = query +
+                        "GROUP BY quotation_list.quotation_id";
+            }
+
+            ResultSet quotationResultSet = database.getResultSet(query);
             while (quotationResultSet.next()) {
-                if (lastQuotationID != null) {
-                    String currentQuotationID = String.format("%05d", Integer.parseInt(quotationResultSet.getString(1)));
-                    if (currentQuotationID.equals(lastQuotationID)) {
-                        System.out.println("Duplicate : " + currentQuotationID);
-                        continue;
-                    }
-                }
-                Quotation quotation = new Quotation(quotationResultSet.getString(1)
-                        , quotationResultSet.getString(2), quotationResultSet.getString(3)
-                        , quotationResultSet.getString(4), quotationResultSet.getString(5)
-                        , Integer.parseInt(quotationResultSet.getString(6)));
-                System.out.println(quotation);
 
-                ResultSet customerResultSet = database.getResultSet(
-                        "SELECT * FROM customer_list WHERE `customer_id` = " + quotation.getCustomer_id());
-                Customer customer = null;
-                if (customerResultSet.next()) {
-                    customer = new Customer(customerResultSet.getString(2)
-                            , customerResultSet.getString(3), customerResultSet.getString(4)
-                            , customerResultSet.getString(5), customerResultSet.getString(6)
-                            , customerResultSet.getString(7)
-                            , Integer.parseInt(customerResultSet.getString(8)));
-                    customer.setId(customerResultSet.getString(1));
-                    System.out.println(customer);
-                }
-
-                QuotationDetail quotationDetail = new QuotationDetail(quotation, customer);
+                QuotationDetail quotationDetail = new QuotationDetail(quotationResultSet.getInt(1)
+                        , quotationResultSet.getInt(2), quotationResultSet.getString(3)
+                        , quotationResultSet.getInt(4), quotationResultSet.getString(5)
+                        , quotationResultSet.getString(6), quotationResultSet.getInt(7));
                 list.add(quotationDetail);
-                System.out.println(quotationDetail);
-
-                lastQuotationID = quotation.getQuotationId();
-                System.out.println("LastQuotationID: " + lastQuotationID);
             }
         } catch (SQLException sqlE) {
             sqlE.printStackTrace();
@@ -123,9 +122,18 @@ public class QuotationListController extends Observable {
     @FXML
     public void clickQuotationDetail(MouseEvent event) {
         if (event.getClickCount() == 2 && previousController instanceof CreatePOController) {
-            notifyObservers(quotationTableView.getSelectionModel().getSelectedItem());
-            Stage stage = (Stage) quotationTableView.getScene().getWindow();
-            stage.close();
+
+            if (database.hasValueInTable("po", "quotation_id"
+                    , quotationTableView.getSelectionModel().getSelectedItem().getQuotationId())) {
+                PageManager.newAlert("Found an exist PO with this Quotation!"
+                        , "Already have Purchase Order with this Quotation!\n" +
+                                "Please select another quotation"
+                        , Alert.AlertType.ERROR);
+            } else {
+                notifyObservers(quotationTableView.getSelectionModel().getSelectedItem());
+                Stage stage = (Stage) quotationTableView.getScene().getWindow();
+                stage.close();
+            }
         }
     }
 

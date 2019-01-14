@@ -16,7 +16,8 @@ public class PRDetail {
     private String lastName;
     private String email;
     private String address;
-    private String status;
+    private String prStatus;
+    private String customerStatus;
     private String phoneNumber;
     private int limit;
 
@@ -30,7 +31,8 @@ public class PRDetail {
         lastName = customer.getLastName();
         email = customer.getEmail();
         address = customer.getAddress();
-        status = customer.getStatus();
+        prStatus = pr.getPrStatus();
+        customerStatus = customer.getStatus();
         phoneNumber = customer.getPhoneNumber();
         limit = customer.getLimit();
 
@@ -60,10 +62,10 @@ public class PRDetail {
         }
     }
 
-    public PRDetail(String purchaseRequestId, String date, String customerID, String firstName, String lastName
-            , String email, String address, String status, String phoneNumber, int limit) {
-        this(new PR(purchaseRequestId, "", date, customerID),
-                new Customer(firstName, lastName, email, address, status, phoneNumber, limit));
+    public PRDetail(String purchaseRequestId, String date, String customerID, String prStatus, String firstName, String lastName
+            , String email, String address, String customerStatus, String phoneNumber, int limit) {
+        this(new PR(purchaseRequestId, "", date, customerID, prStatus),
+                new Customer(firstName, lastName, email, address, customerStatus, phoneNumber, limit));
     }
 
     public String getPurchaseRequestId() {
@@ -122,12 +124,20 @@ public class PRDetail {
         this.address = address;
     }
 
-    public String getStatus() {
-        return status;
+    public String getPrStatus() {
+        return prStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setPrStatus(String prStatus) {
+        this.prStatus = prStatus;
+    }
+
+    public String getCustomerStatus() {
+        return customerStatus;
+    }
+
+    public void setCustomerStatus(String customerStatus) {
+        this.customerStatus = customerStatus;
     }
 
     public String getPhoneNumber() {
@@ -148,7 +158,7 @@ public class PRDetail {
 
     @Override
     public String toString() {
-        return String.format("prID: %s, customerID: %s, %s, %s, %s, %s, %s, %s", purchaseRequestId, customerID, firstName, lastName, email, address, phoneNumber, status);
+        return String.format("prID: %s, customerID: %s, %s, %s, %s, %s, %s, %s", purchaseRequestId, customerID, firstName, lastName, email, address, phoneNumber, prStatus);
     }
 
     public ObservableList<Product> getProducts() {

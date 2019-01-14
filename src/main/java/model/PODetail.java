@@ -16,11 +16,11 @@ public class PODetail {
     private DBConnecter database = DBConnecter.getInstance();
     private ResultSet customerResultSet;
 
-    public PODetail(String poId, String quotationId, String prId, String firstName, String lastName
+    public PODetail(String poId, String prId, String quotationId, String firstName, String lastName
             , String sendDate, double totalCost, String status) {
         this.poId = String.format("%05d", Integer.parseInt(poId));
-        this.quotationId = String.format("%05d", Integer.parseInt(quotationId));
         this.prId = String.format("%05d", Integer.parseInt(prId));
+        this.quotationId = String.format("%05d", Integer.parseInt(quotationId));
         this.firstName = firstName;
         this.lastName = lastName;
         this.sendDate = sendDate;
