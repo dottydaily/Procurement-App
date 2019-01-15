@@ -121,8 +121,13 @@ public class CreateQuotationController implements Observer {
     @FXML
     protected void handleEnterPriceButton(ActionEvent e) {
         if (bestPriceTextField.getText().isEmpty()) {
-            PageManager.newAlert("Select product error."
+            PageManager.newAlert("Enter best product price error."
                     , "Please fill your best price of product.", Alert.AlertType.INFORMATION);
+            return;
+        } else if (bestPriceTextField.getText().matches(".*\\D.*") ||
+                Double.parseDouble(bestPriceTextField.getText()) <= 0){
+            PageManager.newAlert("Enter best product price error."
+                    , "Product Price must be positive number.", Alert.AlertType.INFORMATION);
             return;
         }
 
@@ -169,7 +174,7 @@ public class CreateQuotationController implements Observer {
                 database.updateQuotation(selectedPRDetail.getPurchaseRequestId(), p.getId(), Integer.toString(totalCost));
             }
 
-            PageManager.newAlert("Update Quotation success", "Complete update an existing Quotation"
+            PageManager.newAlert("Update Quotation success", "Complete update an existing Quotation."
                     , Alert.AlertType.INFORMATION);
         } else {
             for (Product p : products) {
@@ -177,7 +182,7 @@ public class CreateQuotationController implements Observer {
                         , selectedPRDetail.getDate(), selectedPRDetail.getCustomerID(), Integer.toString(totalCost));
             }
 
-            PageManager.newAlert("Create Quotation success", "Complete register a new Quotation"
+            PageManager.newAlert("Create Quotation success", "Complete register a new Quotation."
                     , Alert.AlertType.INFORMATION);
         }
 

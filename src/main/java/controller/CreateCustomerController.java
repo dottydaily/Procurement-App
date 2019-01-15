@@ -69,11 +69,11 @@ public class CreateCustomerController extends Observable {
                 System.out.println(phoneNumber);
                 System.out.println(address);
 
-                Stage stage = (Stage) createButton.getScene().getWindow();
-                stage.close();
-
                 PageManager.newAlert("Register complete!"
                         , "Register customer complete! back to previous page.", Alert.AlertType.INFORMATION);
+
+                Stage stage = (Stage) createButton.getScene().getWindow();
+                stage.close();
 
                 notifyObservers(customer);
             }

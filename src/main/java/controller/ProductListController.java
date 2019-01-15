@@ -123,7 +123,11 @@ public class ProductListController extends Observable {
     public void handleAddProductButton() {
         if (amountTextField.getText().isEmpty()) {
             PageManager.newAlert("Select product error."
-                    , "Please fill all of information", Alert.AlertType.INFORMATION);
+                    , "Please fill all of information.", Alert.AlertType.INFORMATION);
+            return;
+        } else if (amountTextField.getText().matches(".*\\D+.*")) {
+            PageManager.newAlert("Select product error."
+                    , "Amount must be positive number.", Alert.AlertType.INFORMATION);
             return;
         }
 
