@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 14, 2019 at 08:18 AM
+-- Generation Time: Jan 15, 2019 at 03:15 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.0
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `procurement_app`
 --
+CREATE DATABASE IF NOT EXISTS `procurement_app` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `procurement_app`;
 
 -- --------------------------------------------------------
 
@@ -51,7 +53,8 @@ INSERT INTO `customer_list` (`customer_id`, `customer_firstname`, `customer_last
 (00004, 'SOMCHAI', 'JAIDEE', 'somchai.j@ku.th', '50/878-879, Rangsit 15 Soi 22, Rangsit-Pathumthani road, Prachathipat distinct, Thanyaburi, Pathumthani, 12130', 'Good', 0126647335, 5000),
 (00005, 'PAPATPHOL', 'BOONCHUAL', 'aisawaka@yahoo.jp', '47, Pluksa village, Soi 17/2, Bueng Yitho distinct, Thanyaburi, Pathumthani, 12130', 'Good', 0982346657, 5000),
 (00006, 'TAWAREE', 'PASATHITI', 'nan_tawaree@gmail.com', '12/775, Supalai village, Soi 10, Bueng Yitho distinct, Klong-4, Pathumthani, 12130', 'Good', 0972253470, 5000),
-(00007, 'CHATCHART', 'PHUETHAI', 'chatchart.p@gmail.com', '15, Rangsit-Pathumthani 14 Soi 17, Prachathipat, Thanyaburi, Pathumthani, 12130', 'Good', 0778971001, 5000);
+(00007, 'CHATCHART', 'PHUETHAI', 'chatchart.p@gmail.com', '15, Rangsit-Pathumthani 14 Soi 17, Prachathipat, Thanyaburi, Pathumthani, 12130', 'Good', 0778971001, 5000),
+(00008, 'PORNPAT', 'SANTIBUPPAKUL', 'pornpat.s@ku.th', '37, Rangsit 12 Soi 15, Prachathipat, Thanyaburi, Pathumthani, 12130', 'Good', 0891085695, 5000);
 
 -- --------------------------------------------------------
 
@@ -126,7 +129,8 @@ INSERT INTO `pr` (`prDetailID`, `pr_id`, `product_id`, `date`, `customer_id`, `p
 (00018, 00009, 00007, '2019-01-13', 00006, 'Incomplete'),
 (00019, 00010, 00015, '2019-01-13', 00004, 'Incomplete'),
 (00020, 00011, 00003, '2019-01-09', 00004, 'Incomplete'),
-(00021, 00012, 00003, '2019-01-10', 00001, 'Complete');
+(00021, 00012, 00003, '2019-01-10', 00001, 'Complete'),
+(00022, 00013, 00016, '2019-01-13', 00006, 'Incomplete');
 
 -- --------------------------------------------------------
 
@@ -161,7 +165,8 @@ INSERT INTO `product_list` (`product_id`, `product_name`, `price_per_each`, `pro
 (00012, 'Microsoft Wired Mouse', 799, 1),
 (00013, 'Cloreen', 40, 2),
 (00014, 'Ostry KC06A', 2490, 1),
-(00015, 'REMAX 3.0 USB 2 M', 199, 3);
+(00015, 'REMAX 3.0 USB 2 M', 199, 3),
+(00016, 'BBQ Candy', 20, 79);
 
 -- --------------------------------------------------------
 
@@ -279,7 +284,7 @@ ALTER TABLE `user_list`
 -- AUTO_INCREMENT for table `customer_list`
 --
 ALTER TABLE `customer_list`
-  MODIFY `customer_id` int(5) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `customer_id` int(5) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `po`
@@ -291,13 +296,13 @@ ALTER TABLE `po`
 -- AUTO_INCREMENT for table `pr`
 --
 ALTER TABLE `pr`
-  MODIFY `prDetailID` int(5) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `prDetailID` int(5) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `product_list`
 --
 ALTER TABLE `product_list`
-  MODIFY `product_id` int(5) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `product_id` int(5) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `quotation_list`
