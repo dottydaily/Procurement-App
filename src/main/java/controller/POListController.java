@@ -9,7 +9,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import model.DBConnecter;
 import model.PODetail;
 import model.PageManager;
@@ -105,8 +104,9 @@ public class POListController implements Observer {
     protected void clickPoDetail(MouseEvent event) {
         if (event.getClickCount() == 2) {
             selectedPoDetail = poTableView.getSelectionModel().getSelectedItem();
-            System.out.println(selectedPoDetail.getFirstName() + selectedPoDetail.getLastName());
-            System.out.println(">>> " + selectedPoDetail.getPrId() + " " + selectedPoDetail.getQuotationId() + " " + selectedPoDetail.getPoId());
+            System.out.println(selectedPoDetail.getCustomer().getFirstName() + selectedPoDetail.getLastName());
+            System.out.println(">>> PR : " + selectedPoDetail.getPrId() + " Quotation : "
+                    + selectedPoDetail.getQuotationId() + " PO : " + selectedPoDetail.getPoId());
             AcceptPOController controller = new AcceptPOController(this);
             PageManager.newWindow("AcceptPOView.fxml", "Confirm PO", true, controller);
         }
@@ -127,8 +127,8 @@ public class POListController implements Observer {
             resultSet = database.getResultSet(
                     "SELECT\n" +
                             "    po.po_id,\n" +
-                            "    po.quotation_id,\n" +
                             "    quotation_list.pr_id,\n" +
+                            "    po.quotation_id,\n" +
                             "    customer_list.customer_firstname,\n" +
                             "    customer_list.customer_lastname,\n" +
                             "    po.send_date,\n" +
