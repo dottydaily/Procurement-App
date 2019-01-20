@@ -182,7 +182,8 @@ public class CreateQuotationController implements Observer {
         if (database.hasValueInTable("quotation_list", "pr_id"
                 , selectedPRDetail.getPurchaseRequestId())) {
             for (Product p : products) {
-                database.updateQuotation(selectedPRDetail.getPurchaseRequestId(), p.getId(), Integer.toString(totalCost));
+                database.updateQuotation(selectedPRDetail.getPurchaseRequestId(), p.getId()
+                        , Integer.toString(totalCost), p.getPricePerEachAsInt());
             }
 
             PageManager.newAlert("Update Quotation success", "Complete update an existing Quotation."
@@ -193,8 +194,10 @@ public class CreateQuotationController implements Observer {
         }
         else {
             for (Product p : products) {
+                System.out.println(p);
                 database.insertQuotation(quotationID, selectedPRDetail.getPurchaseRequestId(), p.getId()
-                        , selectedPRDetail.getDate(), selectedPRDetail.getCustomerID(), Integer.toString(totalCost));
+                        , selectedPRDetail.getDate(), selectedPRDetail.getCustomerID(), Integer.toString(totalCost)
+                        , p.getPricePerEachAsInt());
             }
 
             int currentLimit = totalCost - selectedCustomer.getLimit();

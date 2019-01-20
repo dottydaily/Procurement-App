@@ -146,18 +146,18 @@ public class DBConnecter {
     }
 
     public void insertQuotation(String quotationID, String prID, String productID, String date
-            , String customerID, String totalCost) {
+            , String customerID, String totalCost, int newPricePerEach) {
         String query = "INSERT INTO quotation_list VALUES (NULL, ";
-        query = query + String.format("'%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-                quotationID, prID, productID, date, customerID, totalCost, "Incomplete");
+        query = query + String.format("'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d')",
+                quotationID, prID, productID, date, customerID, totalCost, "Incomplete", newPricePerEach);
 
         doQuery(query);
     }
 
-    public void updateQuotation(String prID, String productID, String totalCost) {
-        String query = String.format("Update quotation_list SET total_cost = %s\n" +
-                "WHERE quotation_list.pr_id = %s AND product_id = %s"
-                , totalCost, prID, productID);
+    public void updateQuotation(String prID, String productID, String totalCost, int newPricePerEach) {
+        String query = String.format("Update quotation_list SET total_cost = %s, new_pricePerEach = %d\n" +
+                "WHERE quotation_list.pr_id = %s AND product_id = %s;\n"
+                , totalCost, newPricePerEach, prID, productID);
 
         doQuery(query);
     }

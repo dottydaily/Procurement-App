@@ -46,7 +46,7 @@ public class PRDetail {
                             "   pr.pr_id,\n" +
                             "   pr.product_id,\n" +
                             "   product_list.product_name,\n" +
-                            "   product_list.price_per_each,\n" +
+                            "   pr.product_pricePerEach,\n" +
                             "   pr.product_qty\n" +
                             "FROM pr\n" +
                             "INNER JOIN product_list\n" +

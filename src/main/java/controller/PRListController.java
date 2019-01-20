@@ -127,7 +127,7 @@ public class PRListController extends Observable {
                     "INNER JOIN customer_list ON pr.customer_id = customer_list.customer_id \n";
             if (previousController instanceof CreateQuotationController) {
                 query = query +
-                        "AND pr.pr_status = \"Incomplete\"\n" +
+//                        "AND pr.pr_status = \"Incomplete\"\n" +
                         additionalQuery + "\n" +
                         "GROUP BY pr.pr_id";
             } else if (previousController instanceof SelectMenuController) {
