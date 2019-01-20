@@ -116,6 +116,11 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </JFXButton>
+            <Label fx:id="timeLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="595.0" layoutY="5.0" maxWidth="200.0" minWidth="200.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

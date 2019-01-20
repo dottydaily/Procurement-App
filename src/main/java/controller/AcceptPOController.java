@@ -1,6 +1,9 @@
 package controller;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,10 +14,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -50,6 +57,9 @@ public class AcceptPOController extends Observable {
     protected JFXButton closeButton;
     @FXML
     protected JFXButton orderCompleteButton;
+
+    @FXML
+    protected Label timeLabel;
 
     private DBConnecter database = DBConnecter.getInstance();
     private ArrayList<Observer> observers = new ArrayList<>();
@@ -89,6 +99,8 @@ public class AcceptPOController extends Observable {
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
         }
+
+        PageManager.setClockInView(timeLabel);
 
         productIDTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         productNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));

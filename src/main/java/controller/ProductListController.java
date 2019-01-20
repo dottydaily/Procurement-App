@@ -37,6 +37,10 @@ public class ProductListController extends Observable {
 
     @FXML
     protected Label quantityPromptLabel;
+    @FXML
+    protected Label descriptionLabel;
+    @FXML
+    protected Label timeLabel;
 
     @FXML
     protected JFXTextField amountTextField;
@@ -46,8 +50,7 @@ public class ProductListController extends Observable {
     @FXML
     protected JFXButton backButton;
 
-    @FXML
-    protected Label descriptionLabel;
+
 
     private DBConnecter database = DBConnecter.getInstance();
     private ResultSet resultSet;
@@ -76,6 +79,8 @@ public class ProductListController extends Observable {
         } else if (previousController instanceof CreatePRController) {
             backButton.setText("Close");
         }
+
+        PageManager.setClockInView(timeLabel);
 
         try {
             resultSet = database.getResultSet("SELECT * FROM product_list");

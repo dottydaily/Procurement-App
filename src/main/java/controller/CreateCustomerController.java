@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import model.Customer;
 import model.DBConnecter;
@@ -30,6 +31,8 @@ public class CreateCustomerController extends Observable {
     protected JFXTextField phoneNumberTextField;
     @FXML
     protected JFXTextArea addressTextField;
+    @FXML
+    protected Label timeLabel;
 
     private DBConnecter database = DBConnecter.getInstance();
     private CreatePRController createPRController;
@@ -37,6 +40,11 @@ public class CreateCustomerController extends Observable {
 
     public CreateCustomerController(CreatePRController controller) {
         addObserver(controller);
+    }
+
+    @FXML
+    protected void initialize() {
+        PageManager.setClockInView(timeLabel);
     }
 
     @FXML

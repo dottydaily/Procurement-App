@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import model.DBConnecter;
 import model.DataChecker;
 import model.PageManager;
@@ -26,11 +27,19 @@ public class CreateProductController extends Observable {
     @FXML
     protected JFXButton createButton;
 
+    @FXML
+    protected Label timeLabel;
+
     private DBConnecter database = DBConnecter.getInstance();
     private ArrayList<Observer> observers = new ArrayList<>();
 
     public CreateProductController(CreatePRController controller) {
         addObserver(controller);
+    }
+
+    @FXML
+    protected void initialize() {
+        PageManager.setClockInView(timeLabel);
     }
 
     @FXML

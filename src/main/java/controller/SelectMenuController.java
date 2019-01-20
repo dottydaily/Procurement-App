@@ -3,6 +3,7 @@ package controller;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import model.DBConnecter;
 import model.PageManager;
 
@@ -24,8 +25,15 @@ public class SelectMenuController {
     protected JFXButton viewProductHistory;
     @FXML
     protected JFXButton backButton;
+    @FXML
+    protected Label timeLabel;
 
     private DBConnecter database = DBConnecter.getInstance();
+
+    @FXML
+    protected void initialize() {
+        PageManager.setClockInView(timeLabel);
+    }
 
     @FXML
     protected void handleCreatePRButton(ActionEvent e) {

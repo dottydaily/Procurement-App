@@ -56,12 +56,17 @@ public class CreatePRController implements Observer {
 
     @FXML
     protected Label customerNameLabel;
+    @FXML
+    protected Label timeLabel;
+    @FXML
+    protected Label totalPriceLabel;
 
     private DBConnecter database = DBConnecter.getInstance();
     private Customer selectCustomer;
     private ObservableList<Product> products = FXCollections.observableArrayList();
     private String prID = "00000";
     private ArrayList<Stage> popUpStages = new ArrayList<>();
+    private int totalPrice = 0;
 
     @FXML
     protected void initialize() {
@@ -76,6 +81,7 @@ public class CreatePRController implements Observer {
 
         productTableView.setItems(products);
 
+        PageManager.setClockInView(timeLabel);
 
         try {
             ResultSet resultSet = database.getResultSet("SELECT MAX(pr_id) FROM pr");
@@ -166,6 +172,8 @@ public class CreatePRController implements Observer {
         else if (o instanceof CreateProductController || o instanceof ProductListController) {
             createButton.setDisable(false);
             products.add((Product) arg);
+            totalPrice += ((Product) arg).getAmountAsInt();
+            totalPriceLabel.setText(String.format("%,d Baht", totalPrice));
         }
     }
 

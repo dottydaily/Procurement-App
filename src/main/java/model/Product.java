@@ -77,6 +77,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return String.format("%s %50s %30s %5s", id, name, pricePerEach, quantity);
+        return String.format("%s %50s %30s %5s = %5s", id, name, pricePerEach, quantity, amount);
     }
 }

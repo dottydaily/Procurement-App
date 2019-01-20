@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXTextArea;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import model.Customer;
+import model.PageManager;
 
 public class CustomerDetailController {
 
@@ -17,6 +18,8 @@ public class CustomerDetailController {
     protected Label phoneNumberLabel;
     @FXML
     protected Label creditStatusLabel;
+    @FXML
+    protected Label timeLabel;
     @FXML
     protected JFXTextArea addressTextArea;
 
@@ -41,6 +44,8 @@ public class CustomerDetailController {
 
     @FXML
     public void initialize() {
+        PageManager.setClockInView(timeLabel);
+
         Customer customer;
         if (createPRController != null) {
             customer = createPRController.getSelectCustomer();

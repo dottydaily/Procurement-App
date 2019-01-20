@@ -40,6 +40,8 @@ public class QuotationListController extends Observable {
     protected TableColumn<Quotation, Integer> totalCostTableColumn;
     @FXML
     protected Label descriptionLabel;
+    @FXML
+    protected Label timeLabel;
 
     @FXML
     protected JFXButton backButton;
@@ -66,6 +68,8 @@ public class QuotationListController extends Observable {
         }
 
         quotationDetails = getQuotationDetailList();
+
+        PageManager.setClockInView(timeLabel);
 
         quotationIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("quotationId"));
         pRIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("purchaseRequestId"));

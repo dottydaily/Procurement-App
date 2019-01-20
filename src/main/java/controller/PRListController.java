@@ -40,8 +40,11 @@ public class PRListController extends Observable {
     protected TableColumn<PRDetail, String> telTableColumn;
     @FXML
     protected TableColumn<PRDetail, String> statusTableColumn;
+
     @FXML
     protected Label descriptionLabel;
+    @FXML
+    protected Label timeLabel;
 
     @FXML
     protected JFXButton backButton;
@@ -71,6 +74,8 @@ public class PRListController extends Observable {
         }
 
         prDetails = getPRDetailList();
+
+        PageManager.setClockInView(timeLabel);
 
         pRIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("purchaseRequestId"));
         customerIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));

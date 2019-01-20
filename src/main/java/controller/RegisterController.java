@@ -37,6 +37,8 @@ public class RegisterController {
 
     @FXML
     protected Label statusLabel;
+    @FXML
+    protected Label timeLabel;
 
     @FXML
     protected JFXButton backButton;
@@ -51,6 +53,8 @@ public class RegisterController {
 
     @FXML
     protected void initialize() {
+        PageManager.setClockInView(timeLabel);
+
         fxmlList = new ArrayList<>(8);
         fxmlList.add(firstNameTextField);
         fxmlList.add(lastNameTextField);

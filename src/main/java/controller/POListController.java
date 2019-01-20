@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -38,6 +39,9 @@ public class POListController implements Observer {
     @FXML
     protected TableColumn<PODetail, String> statusTableColumn;
 
+    @FXML
+    protected Label timeLabel;
+
     private DBConnecter database = DBConnecter.getInstance();
     private ResultSet resultSet;
     private ObservableList<PODetail> poDetails;
@@ -64,6 +68,8 @@ public class POListController implements Observer {
             System.out.println("Cannot query from customer_list.");
             sqlE.printStackTrace();
         }
+
+        PageManager.setClockInView(timeLabel);
 
         poIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("poId"));
         prIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("prId"));

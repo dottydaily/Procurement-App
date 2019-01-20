@@ -105,11 +105,12 @@
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="200.0" />
                     </columnConstraints>
                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXButton fx:id="addFromProductHistoryButton" buttonType="RAISED" disable="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleAddFromProductHistoryButton" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: #a62329;" text="Add from Product history" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="addFromProductHistoryButton" buttonType="RAISED" disable="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleAddFromProductHistoryButton" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: #a62329;" text="Add from Product history" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -117,17 +118,17 @@
                               <Insets left="10.0" right="10.0" />
                            </GridPane.margin>
                         </JFXButton>
-                        <Label text="If you had enter a product into the system, just use product history." GridPane.halignment="RIGHT">
+                        <Label text="If you had enter a product into the system, just use product history." GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label text="If not, please enter it manually. It'll be registered to the system automatically." GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <Label text="If not, please enter it manually. It'll be registered to the system automatically." GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <JFXButton fx:id="addANewProductManually" buttonType="RAISED" disable="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleAddANewProductManually" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: #23a69d;" text="Add a new product manually" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <JFXButton fx:id="addANewProductManually" buttonType="RAISED" disable="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleAddANewProductManually" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: #23a69d;" text="Add a new product manually" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -135,6 +136,19 @@
                               <Insets left="10.0" />
                            </GridPane.margin>
                         </JFXButton>
+                        <Label text="Total Price of this PR : " GridPane.halignment="RIGHT">
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label fx:id="totalPriceLabel" text="0 Baht" textFill="#ff0505" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
                      </children>
                   </GridPane>
                </children>
@@ -149,6 +163,11 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </JFXButton>
+            <Label fx:id="timeLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="595.0" layoutY="5.0" maxWidth="200.0" minWidth="200.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

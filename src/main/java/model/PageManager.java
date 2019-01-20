@@ -1,15 +1,23 @@
 package model;
 
 import controller.LoginController;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class PageManager {
     public static void swapPage(ActionEvent e, String fxmlName) {
@@ -94,5 +102,21 @@ public class PageManager {
         alert.setTitle(title);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    public static void setClockInView(Label timeLabel) {
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern( "HH:mm:ss" );
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern( "E dd MMMM YYYY" );
+        timeLabel.setText(LocalDate.now().format(dateFormat) + " " + LocalTime.now().format(timeFormat));
+        final Timeline timeline = new Timeline(
+                new KeyFrame(
+                        Duration.millis( 500 ),
+                        event -> {
+                            timeLabel.setText(LocalDate.now().format(dateFormat) + " " + LocalTime.now().format(timeFormat));
+                        }
+                )
+        );
+        timeline.setCycleCount( Animation.INDEFINITE );
+        timeline.play();
     }
 }

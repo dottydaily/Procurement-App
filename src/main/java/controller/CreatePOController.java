@@ -45,8 +45,6 @@ public class CreatePOController implements Observer {
     protected Label totalPriceLabel;
 
     @FXML
-    protected JFXTextField sendDateTextField;
-    @FXML
     protected JFXDatePicker sendDateDatePicker;
 
     @FXML
@@ -57,6 +55,9 @@ public class CreatePOController implements Observer {
     protected JFXButton backButton;
     @FXML
     protected JFXButton createButton;
+
+    @FXML
+    protected Label timeLabel;
 
     private DBConnecter database = DBConnecter.getInstance();
     private Customer selectedCustomer;
@@ -75,6 +76,8 @@ public class CreatePOController implements Observer {
         quantityTableColumn.setStyle(" -fx-alignment: CENTER-RIGHT;");
         amountTableColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         amountTableColumn.setStyle(" -fx-alignment: CENTER-RIGHT;");
+
+        PageManager.setClockInView(timeLabel);
 
         try {
             ResultSet resultSet = database.getResultSet("SELECT MAX(po_id) FROM po");

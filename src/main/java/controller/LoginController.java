@@ -3,7 +3,11 @@ package controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.util.Duration;
 import model.DBConnecter;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,6 +15,11 @@ import model.PageManager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class LoginController {
 
@@ -29,6 +38,9 @@ public class LoginController {
     @FXML
     protected JFXPasswordField passwordTextField;
 
+    @FXML
+    protected Label timeLabel;
+
     private DBConnecter database = DBConnecter.getInstance();
     private ResultSet resultSet;
 
@@ -46,6 +58,8 @@ public class LoginController {
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
         }
+
+        PageManager.setClockInView(timeLabel);
     }
 
     @FXML

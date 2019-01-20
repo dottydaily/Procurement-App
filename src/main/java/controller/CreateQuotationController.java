@@ -57,6 +57,9 @@ public class CreateQuotationController implements Observer {
     @FXML
     protected JFXButton createButton;
 
+    @FXML
+    protected Label timeLabel;
+
     private DBConnecter database = DBConnecter.getInstance();
     private Customer selectedCustomer;
     private PRDetail selectedPRDetail;
@@ -75,6 +78,8 @@ public class CreateQuotationController implements Observer {
         quantityTableColumn.setStyle(" -fx-alignment: CENTER-RIGHT;");
         amountTableColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         amountTableColumn.setStyle(" -fx-alignment: CENTER-RIGHT;");
+
+        PageManager.setClockInView(timeLabel);
 
         try {
             ResultSet resultSet = database.getResultSet("SELECT MAX(quotation_id) FROM quotation_list");

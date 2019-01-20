@@ -1,10 +1,9 @@
 package controller;
 
-import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -12,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Customer;
 import model.DBConnecter;
+import model.PageManager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,6 +40,9 @@ public class CustomerListController extends Observable {
     @FXML
     protected TableColumn<Customer, Integer> limitTableViewColumn;
 
+    @FXML
+    protected Label timeLabel;
+
     private DBConnecter database = DBConnecter.getInstance();
     private ResultSet resultSet;
     private CreatePRController createPRController;
@@ -60,6 +63,8 @@ public class CustomerListController extends Observable {
             System.out.println("Cannot query from customer_list.");
             sqlE.printStackTrace();
         }
+
+        PageManager.setClockInView(timeLabel);
 
         addObserver(createPRController);
         idTableViewColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("id"));
