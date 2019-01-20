@@ -93,9 +93,10 @@
                   <TableView fx:id="productTableView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                     <columns>
                       <TableColumn fx:id="productIDTableColumn" prefWidth="100.0" text="Product ID" />
-                        <TableColumn fx:id="productNameTableColumn" prefWidth="320.0" text="Product Name" />
-                        <TableColumn fx:id="pricePerPieceTableColumn" prefWidth="200.0" text="Price Per Piece" />
-                        <TableColumn fx:id="amountTableColumn" text="Amount" />
+                        <TableColumn fx:id="productNameTableColumn" prefWidth="280.0" text="Product Name" />
+                        <TableColumn fx:id="pricePerPieceTableColumn" prefWidth="100.0" text="Price Per Piece" />
+                        <TableColumn fx:id="quantityTableColumn" text="QTY" />
+                        <TableColumn fx:id="amountTableColumn" prefWidth="120.0" text="Amount" />
                     </columns>
                   </TableView>
                   <GridPane maxWidth="-Infinity" prefHeight="100.0" prefWidth="615.0" GridPane.halignment="CENTER" GridPane.rowIndex="3">

@@ -6,10 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -32,12 +29,14 @@ public class ProductListController extends Observable {
     @FXML
     protected TableColumn<Product, String> productNameTableColumn;
     @FXML
-    protected TableColumn<Product, Integer> pricePerPieceTableColumn;
+    protected TableColumn<Product, String> pricePerPieceTableColumn;
     @FXML
-    protected TableColumn<Product, Integer> amountTableColumn;
+    protected TableColumn<Product, String> quantityTableColumn;
+    @FXML
+    protected TableColumn<Product, String> amountTableColumn;
 
     @FXML
-    protected Label amountPromptLabel;
+    protected Label quantityPromptLabel;
 
     @FXML
     protected JFXTextField amountTextField;
@@ -68,7 +67,7 @@ public class ProductListController extends Observable {
     @FXML
     protected void initialize() {
         if (this.previousController instanceof SelectMenuController) {
-            amountPromptLabel.setOpacity(0);
+            quantityPromptLabel.setOpacity(0);
             amountTextField.setOpacity(0);
             amountTextField.setDisable(true);
             addProductButton.setOpacity(0);
@@ -93,7 +92,11 @@ public class ProductListController extends Observable {
         productIDTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         productNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         pricePerPieceTableColumn.setCellValueFactory(new PropertyValueFactory<>("pricePerEach"));
+        pricePerPieceTableColumn.setStyle(" -fx-alignment: CENTER-RIGHT;");
+        quantityTableColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        quantityTableColumn.setStyle(" -fx-alignment: CENTER-RIGHT;");
         amountTableColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        amountTableColumn.setStyle(" -fx-alignment: CENTER-RIGHT;");
 
         productTableView.setItems(products);
     }
@@ -135,7 +138,7 @@ public class ProductListController extends Observable {
             return;
         }
 
-        selectedProduct.setAmount(Integer.parseInt(amountTextField.getText()));
+        selectedProduct.setQuantity(Integer.parseInt(amountTextField.getText()));
         notifyObservers(selectedProduct);
         addProductButton.setDisable(true);
         amountTextField.clear();

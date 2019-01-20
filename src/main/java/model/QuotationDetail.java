@@ -36,7 +36,7 @@ public class QuotationDetail {
                             "   product_list.product_id,\n" +
                             "   product_list.product_name,\n" +
                             "   product_list.price_per_each,\n" +
-                            "   product_list.product_amount\n" +
+                            "   product_list.product_quantity\n" +
                             "FROM\n" +
                             "   quotation_list\n" +
                             "INNER JOIN product_list\n" +

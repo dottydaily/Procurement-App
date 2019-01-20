@@ -28,9 +28,11 @@ public class AcceptPOController extends Observable {
     @FXML
     protected TableColumn<Product, String> productNameTableColumn;
     @FXML
-    protected TableColumn<Product, Integer> pricePerPieceTableColumn;
+    protected TableColumn<Product, String> pricePerPieceTableColumn;
     @FXML
-    protected TableColumn<Product, Integer> amountTableColumn;
+    protected TableColumn<Product, String> quantityTableColumn;
+    @FXML
+    protected TableColumn<Product, String> amountTableColumn;
 
     @FXML
     protected Label customerNameLabel;
@@ -69,7 +71,7 @@ public class AcceptPOController extends Observable {
                     "\tproduct_list.product_id,\n" +
                     "    product_list.product_name,\n" +
                     "    product_list.price_per_each,\n" +
-                    "    product_list.product_amount\n" +
+                    "    product_list.product_quantity\n" +
                     "FROM\n" +
                     "\tpo\n" +
                     "INNER JOIN quotation_list ON po.quotation_id = quotation_list.quotation_id \n" +
@@ -91,7 +93,11 @@ public class AcceptPOController extends Observable {
         productIDTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         productNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         pricePerPieceTableColumn.setCellValueFactory(new PropertyValueFactory<>("pricePerEach"));
+        pricePerPieceTableColumn.setStyle(" -fx-alignment: CENTER-RIGHT;");
+        quantityTableColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        quantityTableColumn.setStyle(" -fx-alignment: CENTER-RIGHT;");
         amountTableColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        amountTableColumn.setStyle(" -fx-alignment: CENTER-RIGHT;");
 
         productTableView.setItems(products);
 

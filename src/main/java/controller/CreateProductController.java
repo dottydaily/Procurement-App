@@ -5,7 +5,6 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.stage.Stage;
 import model.DBConnecter;
 import model.DataChecker;
 import model.PageManager;
@@ -56,8 +55,8 @@ public class CreateProductController extends Observable {
                 System.out.println("DONE UPDATE DATA!");
 
                 System.out.println(product.getName());
-                System.out.println(product.getPricePerEach());
-                System.out.println(product.getAmount());
+                System.out.println(product.getPricePerEachAsInt());
+                System.out.println(product.getQuantityAsInt());
 
                 PageManager.newAlert("Register complete!"
                         , "Register product complete! You can add it again.", Alert.AlertType.INFORMATION);

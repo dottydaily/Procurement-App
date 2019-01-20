@@ -31,9 +31,11 @@ public class CreatePOController implements Observer {
     @FXML
     protected TableColumn<Product, String> productNameTableColumn;
     @FXML
-    protected TableColumn<Product, Integer> pricePerPieceTableColumn;
+    protected TableColumn<Product, String> pricePerPieceTableColumn;
     @FXML
-    protected TableColumn<Product, Integer> amountTableColumn;
+    protected TableColumn<Product, String> quantityTableColumn;
+    @FXML
+    protected TableColumn<Product, String> amountTableColumn;
 
     @FXML
     protected Label customerNameLabel;
@@ -68,7 +70,11 @@ public class CreatePOController implements Observer {
         productIDTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         productNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         pricePerPieceTableColumn.setCellValueFactory(new PropertyValueFactory<>("pricePerEach"));
+        pricePerPieceTableColumn.setStyle(" -fx-alignment: CENTER-RIGHT;");
+        quantityTableColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        quantityTableColumn.setStyle(" -fx-alignment: CENTER-RIGHT;");
         amountTableColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        amountTableColumn.setStyle(" -fx-alignment: CENTER-RIGHT;");
 
         try {
             ResultSet resultSet = database.getResultSet("SELECT MAX(po_id) FROM po");
@@ -113,9 +119,9 @@ public class CreatePOController implements Observer {
         if (date == null) {
             PageManager.newAlert("Create PO error", "Please choose send date of PO", Alert.AlertType.ERROR);
         }
-        else if (date.isBefore(LocalDate.now())) {
-            PageManager.newAlert("Create PO error", "Date mustn't before today. "
-                    + "[" + LocalDate.now().toString() + "]", Alert.AlertType.ERROR);
+        else if (date.isBefore(LocalDate.now()) || date.isAfter(LocalDate.now().plusDays(30))) {
+            PageManager.newAlert("Create PO error", String.format("Date must be between %s and %s.",
+                    LocalDate.now().toString(), LocalDate.now().plusDays(30).toString()), Alert.AlertType.ERROR);
         }
         else {
             String sendDate = date.toString();
@@ -158,7 +164,7 @@ public class CreatePOController implements Observer {
         int totalCost = 0;
 
         for (Product p : products) {
-            totalCost += p.getPricePerEach()*p.getAmount();
+            totalCost += p.getPricePerEachAsInt()*p.getQuantityAsInt();
         }
 
         totalPriceLabel.setText(Integer.toString(totalCost)+" Baht.");

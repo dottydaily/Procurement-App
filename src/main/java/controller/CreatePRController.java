@@ -32,6 +32,8 @@ public class CreatePRController implements Observer {
     @FXML
     protected TableColumn<Product, Integer> pricePerPieceTableColumn;
     @FXML
+    protected TableColumn<Product, Integer> quantityTableColumn;
+    @FXML
     protected TableColumn<Product, Integer> amountTableColumn;
 
     @FXML
@@ -66,7 +68,11 @@ public class CreatePRController implements Observer {
         productIDTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         productNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         pricePerPieceTableColumn.setCellValueFactory(new PropertyValueFactory<>("pricePerEach"));
+        pricePerPieceTableColumn.setStyle(" -fx-alignment: CENTER-RIGHT;");
+        quantityTableColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        quantityTableColumn.setStyle(" -fx-alignment: CENTER-RIGHT;");
         amountTableColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        amountTableColumn.setStyle(" -fx-alignment: CENTER-RIGHT;");
 
         productTableView.setItems(products);
 
@@ -125,9 +131,9 @@ public class CreatePRController implements Observer {
         if (date == null) {
             PageManager.newAlert("Create PR error", "Please choose date of request.", Alert.AlertType.ERROR);
         }
-        else if (date.isAfter(LocalDate.now())) {
-            PageManager.newAlert("Create PR error", "Date mustn't after today. "
-                    + "[" + LocalDate.now().toString() + "]", Alert.AlertType.ERROR);
+        else if (date.isAfter(LocalDate.now()) || date.isBefore(LocalDate.now().minusDays(30))) {
+            PageManager.newAlert("Create PR error", String.format("Date must be between %s and %s.",
+                    LocalDate.now().minusDays(30).toString(), LocalDate.now().toString()), Alert.AlertType.ERROR);
         }
         else {
             System.out.println(date);

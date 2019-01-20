@@ -44,7 +44,7 @@ public class PRDetail {
                             "   pr.product_id,\n" +
                             "   product_list.product_name,\n" +
                             "   product_list.price_per_each,\n" +
-                            "   product_list.product_amount\n" +
+                            "   product_list.product_quantity\n" +
                             "FROM pr\n" +
                             "INNER JOIN product_list\n" +
                             "ON pr.product_id = product_list.product_id AND pr.pr_id = "+ purchaseRequestId);

@@ -23,13 +23,14 @@
                <children>
                   <TableView fx:id="productTableView" layoutX="10.0" layoutY="10.0" onMouseClicked="#clickProduct" prefHeight="380.0" prefWidth="680.0">
                      <columns>
-                        <TableColumn fx:id="productIDTableColumn" prefWidth="100.0" text="Product ID" />
-                        <TableColumn fx:id="productNameTableColumn" prefWidth="320.0" text="Product Name" />
-                        <TableColumn fx:id="pricePerPieceTableColumn" prefWidth="160.0" text="Price Per Piece" />
-                        <TableColumn fx:id="amountTableColumn" prefWidth="100.0" text="Old Amount" />
+                        <TableColumn fx:id="productIDTableColumn" text="Product ID" />
+                        <TableColumn fx:id="productNameTableColumn" prefWidth="280.0" text="Product Name" />
+                        <TableColumn fx:id="pricePerPieceTableColumn" prefWidth="100.0" text="Price Per Piece" />
+                        <TableColumn fx:id="quantityTableColumn" text="Last QTY" />
+                        <TableColumn fx:id="amountTableColumn" prefWidth="120.0" text="Amount" />
                      </columns>
                   </TableView>
-                  <Label fx:id="amountPromptLabel" layoutX="71.0" layoutY="410.0" text="Amount" />
+                  <Label fx:id="quantityPromptLabel" layoutX="71.0" layoutY="410.0" text="Quantity" />
                   <JFXTextField fx:id="amountTextField" disable="true" layoutX="132.0" layoutY="406.0" promptText="Ex. 25" />
                   <JFXButton fx:id="addProductButton" buttonType="RAISED" defaultButton="true" disable="true" layoutX="296.0" layoutY="406.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleAddProductButton" prefHeight="25.0" prefWidth="330.0" style="-fx-background-color: #009b61;" text="Add selected product to PR's product list." textFill="WHITE">
                      <font>

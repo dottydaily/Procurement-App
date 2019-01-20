@@ -30,9 +30,11 @@ public class CreateQuotationController implements Observer {
     @FXML
     protected TableColumn<Product, String> productNameTableColumn;
     @FXML
-    protected TableColumn<Product, Integer> pricePerPieceTableColumn;
+    protected TableColumn<Product, String> pricePerPieceTableColumn;
     @FXML
-    protected TableColumn<Product, Integer> amountTableColumn;
+    protected TableColumn<Product, String> quantityTableColumn;
+    @FXML
+    protected TableColumn<Product, String> amountTableColumn;
 
     @FXML
     protected Label customerNameLabel;
@@ -68,7 +70,11 @@ public class CreateQuotationController implements Observer {
         productIDTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         productNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         pricePerPieceTableColumn.setCellValueFactory(new PropertyValueFactory<>("pricePerEach"));
+        pricePerPieceTableColumn.setStyle(" -fx-alignment: CENTER-RIGHT;");
+        quantityTableColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        quantityTableColumn.setStyle(" -fx-alignment: CENTER-RIGHT;");
         amountTableColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        amountTableColumn.setStyle(" -fx-alignment: CENTER-RIGHT;");
 
         try {
             ResultSet resultSet = database.getResultSet("SELECT MAX(quotation_id) FROM quotation_list");
@@ -143,8 +149,8 @@ public class CreateQuotationController implements Observer {
         int totalCost = 0;
 
         for (Product p : products) {
-            database.updateProductData(p.getId(), p.getPricePerEach());
-            totalCost += p.getPricePerEach()*p.getAmount();
+            database.updateProductData(p.getId(), p.getPricePerEachAsInt());
+            totalCost += p.getPricePerEachAsInt()*p.getQuantityAsInt();
         }
 
         totalPriceLabel.setText(Integer.toString(totalCost)+" Baht.");
@@ -164,8 +170,8 @@ public class CreateQuotationController implements Observer {
         int totalCost = 0;
 
         for (Product p : products) {
-            database.updateProductData(p.getId(), p.getPricePerEach());
-            totalCost += p.getPricePerEach()*p.getAmount();
+            database.updateProductData(p.getId(), p.getPricePerEachAsInt());
+            totalCost += p.getPricePerEachAsInt()*p.getQuantityAsInt();
         }
 
         if (database.hasValueInTable("quotation_list", "pr_id"
@@ -225,7 +231,7 @@ public class CreateQuotationController implements Observer {
         // total cost of all product in this table
         int totalCost = 0;
         for (Product p : products) {
-            totalCost += p.getPricePerEach()*p.getAmount();
+            totalCost += p.getPricePerEachAsInt()*p.getQuantityAsInt();
         }
 
         totalPriceLabel.setText(Integer.toString(totalCost)+" Baht.");
