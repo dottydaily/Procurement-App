@@ -47,6 +47,9 @@ public class ProductListController extends Observable {
     @FXML
     protected JFXButton backButton;
 
+    @FXML
+    protected Label descriptionLabel;
+
     private DBConnecter database = DBConnecter.getInstance();
     private ResultSet resultSet;
     private Object previousController;
@@ -70,6 +73,7 @@ public class ProductListController extends Observable {
             amountTextField.setDisable(true);
             addProductButton.setOpacity(0);
             addProductButton.setDisable(true);
+            descriptionLabel.setOpacity(0);
         } else if (previousController instanceof CreatePRController) {
             backButton.setText("Close");
         }
