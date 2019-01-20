@@ -151,7 +151,7 @@ public class CreatePRController implements Observer {
             System.out.println(date);
             for (Product p : products) {
                 database.insertPR(prID, p.getId(), date.toString(), selectCustomer.getId(), "Incomplete"
-                        , totalPrice, p.getQuantityAsInt());
+                        , totalPrice, p.getQuantityAsInt(), p.getPricePerEachAsInt());
             }
 
             PageManager.newAlert("Create PR success", "Complete register PR", Alert.AlertType.INFORMATION);

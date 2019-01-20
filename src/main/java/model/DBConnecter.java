@@ -137,10 +137,11 @@ public class DBConnecter {
         }
     }
 
-    public void insertPR(String prID, String productID, String date, String customerID, String status, int totalPrice, int quantity) {
+    public void insertPR(String prID, String productID, String date, String customerID, String status
+            , int totalPrice, int quantity, int pricePerEach) {
         String query = "INSERT INTO pr VALUES (NULL, ";
-        query = query + String.format("'%s', '%s', '%s', '%s', '%s', '%d', '%d')",
-                prID, productID, date, customerID, status, totalPrice, quantity);
+        query = query + String.format("'%s', '%s', '%s', '%s', '%s', '%d', '%d', '%d')",
+                prID, productID, date, customerID, status, totalPrice, quantity, pricePerEach);
 
         doQuery(query);
     }
@@ -156,7 +157,7 @@ public class DBConnecter {
 
     public void updateQuotation(String prID, String productID, String totalCost, int newPricePerEach) {
         String query = String.format("Update quotation_list SET total_cost = %s, new_pricePerEach = %d\n" +
-                "WHERE quotation_list.pr_id = %s AND product_id = %s;\n"
+                "WHERE pr_id = %s AND product_id = %s;\n"
                 , totalCost, newPricePerEach, prID, productID);
 
         doQuery(query);

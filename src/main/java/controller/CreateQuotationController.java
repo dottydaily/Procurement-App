@@ -200,7 +200,7 @@ public class CreateQuotationController implements Observer {
                         , p.getPricePerEachAsInt());
             }
 
-            int currentLimit = totalCost - selectedCustomer.getLimit();
+            int currentLimit = selectedCustomer.getLimit() - totalCost;
 
             try {
                 database.getResultSet("UPDATE customer_list SET customer_limit = " + currentLimit + "\n" +
