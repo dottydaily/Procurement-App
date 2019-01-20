@@ -6,6 +6,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -105,6 +106,8 @@ public class PageManager {
     }
 
     public static void setClockInView(Label timeLabel) {
+        timeLabel.setStyle(" -fx-background-color: WHITE; -fx-border-width: 1; -fx-border-color: GREY");
+        timeLabel.setAlignment(Pos.CENTER);
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern( "HH:mm:ss" );
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern( "E dd MMMM YYYY" );
         timeLabel.setText(LocalDate.now().format(dateFormat) + " " + LocalTime.now().format(timeFormat));

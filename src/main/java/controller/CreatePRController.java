@@ -142,9 +142,16 @@ public class CreatePRController implements Observer {
                     LocalDate.now().minusDays(30).toString(), LocalDate.now().toString()), Alert.AlertType.ERROR);
         }
         else {
+            if (totalPrice > selectCustomer.getLimit()) {
+                PageManager.newAlert("Create PR warning", String.format("Total Price is over limit : %,d > %,d.\n" +
+                                "NOTE : You can't create Quotation of this PR if quotation still has totalCost more than limit",
+                        totalPrice, selectCustomer.getLimit()), Alert.AlertType.WARNING);
+            }
+
             System.out.println(date);
             for (Product p : products) {
-                database.insertPR(prID, p.getId(), date.toString(), selectCustomer.getId(), "Incomplete");
+                database.insertPR(prID, p.getId(), date.toString(), selectCustomer.getId(), "Incomplete"
+                        , totalPrice, p.getQuantityAsInt());
             }
 
             PageManager.newAlert("Create PR success", "Complete register PR", Alert.AlertType.INFORMATION);
@@ -173,7 +180,7 @@ public class CreatePRController implements Observer {
             createButton.setDisable(false);
             products.add((Product) arg);
             totalPrice += ((Product) arg).getAmountAsInt();
-            totalPriceLabel.setText(String.format("%,d Baht", totalPrice));
+            totalPriceLabel.setText(String.format("%,d Baht.", totalPrice));
         }
     }
 

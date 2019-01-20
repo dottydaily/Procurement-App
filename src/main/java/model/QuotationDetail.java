@@ -56,9 +56,13 @@ public class QuotationDetail {
                     "SELECT * From customer_list WHERE customer_list.customer_id = " + customerID);
 
             if (customerResultSet.next()) {
+                String customerStatus = "Bad";
+                if (customerResultSet.getBoolean(6)) {
+                    customerStatus = "Good";
+                }
                 customer = new Customer(customerResultSet.getString(2)
                         , customerResultSet.getString(3), customerResultSet.getString(4)
-                        , customerResultSet.getString(5), customerResultSet.getString(6)
+                        , customerResultSet.getString(5), customerStatus
                         , customerResultSet.getString(7), customerResultSet.getInt(8));
                 customer.setId(customerResultSet.getString(1));
             }

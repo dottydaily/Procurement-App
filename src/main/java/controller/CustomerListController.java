@@ -84,9 +84,15 @@ public class CustomerListController extends Observable {
 
         try {
             while (resultSet.next()) {
+                String statusString = "Bad";
+
+                if (resultSet.getBoolean(6)) {
+                    statusString = "Good";
+                }
+
                 Customer customer = new Customer(resultSet.getString(2), resultSet.getString(3),
                         resultSet.getString(4), resultSet.getString(5),
-                        resultSet.getString(6), resultSet.getString(7),
+                        statusString, resultSet.getString(7),
                         Integer.parseInt(resultSet.getString(8)));
                 customer.setId(resultSet.getString(1));
 

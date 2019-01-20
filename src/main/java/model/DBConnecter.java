@@ -46,6 +46,7 @@ public class DBConnecter {
     }
 
     public ResultSet getResultSet(String query) throws SQLException{
+        System.out.println(query);
         statement = connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         return statement.executeQuery();
     }
@@ -61,13 +62,18 @@ public class DBConnecter {
     }
 
     public Customer insertCustomerData(String firstName, String lastName, String email, String address,
-                               String status, String phoneNumber, String limit) {
+                               int status, String phoneNumber, String limit) {
 
+        String statusStrirg = "Bad";
+
+        if (status == 1) {
+            statusStrirg = "Good";
+        }
         Customer customer = new Customer(firstName, lastName, email, address
-                , status, phoneNumber, Integer.parseInt(limit));
+                , statusStrirg, phoneNumber, Integer.parseInt(limit));
 
         String query = "INSERT INTO customer_list VALUES (NULL, ";
-        query = query + String.format("'%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+        query = query + String.format("'%s', '%s', '%s', '%s', '%d', '%s', '%s')",
                 firstName, lastName, email, address, status, phoneNumber, limit);
 
         System.out.println(query);
@@ -131,10 +137,10 @@ public class DBConnecter {
         }
     }
 
-    public void insertPR(String prID, String productID, String date, String customerID, String status) {
+    public void insertPR(String prID, String productID, String date, String customerID, String status, int totalPrice, int quantity) {
         String query = "INSERT INTO pr VALUES (NULL, ";
-        query = query + String.format("'%s', '%s', '%s', '%s', '%s')",
-                prID, productID, date, customerID, status);
+        query = query + String.format("'%s', '%s', '%s', '%s', '%s', '%d', '%d')",
+                prID, productID, date, customerID, status, totalPrice, quantity);
 
         doQuery(query);
     }

@@ -1,6 +1,8 @@
 package controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +18,8 @@ import model.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -44,6 +48,19 @@ public class QuotationListController extends Observable {
     protected Label timeLabel;
 
     @FXML
+    protected JFXTextField customerNameTextField;
+    @FXML
+    protected JFXTextField priceStartTextField;
+    @FXML
+    protected JFXTextField priceEndTextField;
+    @FXML
+    protected JFXDatePicker startDatePicker;
+    @FXML
+    protected JFXDatePicker endDatePicker;
+    @FXML
+    protected JFXButton searchButton;
+
+    @FXML
     protected JFXButton backButton;
 
     private DBConnecter database = DBConnecter.getInstance();
@@ -67,8 +84,6 @@ public class QuotationListController extends Observable {
             descriptionLabel.setOpacity(0);
         }
 
-        quotationDetails = getQuotationDetailList();
-
         PageManager.setClockInView(timeLabel);
 
         quotationIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("quotationId"));
@@ -78,11 +93,9 @@ public class QuotationListController extends Observable {
         firstNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         totalCostTableColumn.setCellValueFactory(new PropertyValueFactory<>("totalCost"));
-
-        quotationTableView.setItems(quotationDetails);
     }
 
-    private ObservableList<QuotationDetail> getQuotationDetailList() {
+    private ObservableList<QuotationDetail> getQuotationDetailList(String additionalQuery) {
         ObservableList<QuotationDetail> list = FXCollections.observableArrayList();
 
         try {
@@ -101,9 +114,11 @@ public class QuotationListController extends Observable {
             if (previousController instanceof CreatePOController) {
                 query = query +
                         "AND quotation_list.quotation_status = \"Incomplete\"\n" +
+                        additionalQuery + "\n" +
                         "GROUP BY quotation_list.quotation_id";
             } else if (previousController instanceof SelectMenuController) {
                 query = query +
+                        additionalQuery + "\n" +
                         "GROUP BY quotation_list.quotation_id";
             }
 
@@ -149,6 +164,73 @@ public class QuotationListController extends Observable {
             Stage stage = (Stage) backButton.getScene().getWindow();
             stage.close();
         }
+    }
+
+    @FXML
+    protected void handleSearchButton(ActionEvent e) {
+        String additionQuery = "WHERE customer_list.customer_firstname LIKE '%%'\n";
+
+        if (!customerNameTextField.getText().isEmpty()) {
+            String[] fullName;
+            if (customerNameTextField.getText().matches(".*\\s.*")) {
+                fullName = customerNameTextField.getText().split("\\s");
+                additionQuery = String.format("WHERE (customer_list.customer_firstname LIKE '%%%s%%'\n" +
+                        "AND customer_list.customer_lastname LIKE '%%%s%%')\n", fullName[0], fullName[1]);
+            } else {
+                String name = customerNameTextField.getText();
+                additionQuery = String.format("WHERE (customer_list.customer_firstname LIKE '%%%s%%'\n" +
+                        "OR customer_list.customer_lastname LIKE '%%%s%%')\n", name, name);
+            }
+        }
+
+        int startPrice = 0;
+        int endPrice = 50000;
+        if (!priceStartTextField.getText().isEmpty()) {
+            if (priceStartTextField.getText().matches("\\d+")) {
+                startPrice = Integer.parseInt(priceStartTextField.getText());
+            }
+
+            if (startPrice > endPrice || startPrice < 0) {
+                startPrice = 0;
+                priceStartTextField.clear();
+            }
+        }
+        if (!priceEndTextField.getText().isEmpty()) {
+            if (priceEndTextField.getText().matches("\\d+")) {
+                endPrice = Integer.parseInt(priceEndTextField.getText());
+            }
+
+            if (endPrice < startPrice || endPrice > 50000) {
+                endPrice = 50000;
+                priceEndTextField.clear();
+            }
+        }
+        additionQuery += String.format("AND quotation_list.total_cost BETWEEN %d AND %d\n", startPrice, endPrice);
+//
+        DateTimeFormatter dateFormatForSQL = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate startDate = LocalDate.of(2017, 1, 1);
+        LocalDate endDate = LocalDate.of(9999, 12, 31);
+        if (startDatePicker.getValue() != null) {
+            if (!startDatePicker.getValue().isAfter(endDate)) {
+                startDate = startDatePicker.getValue();
+            } else {
+                startDatePicker.setValue(LocalDate.of(2017, 1, 1));
+            }
+        }
+        if (endDatePicker.getValue() != null) {
+            if (!endDatePicker.getValue().isBefore(startDate)) {
+                endDate = endDatePicker.getValue();
+            } else {
+                endDatePicker.setValue(LocalDate.of(9999, 12, 31));
+            }
+        }
+        System.out.println(startDate.toString() + " <---> " + endDate.toString());
+        additionQuery += String.format("AND quotation_list.date BETWEEN '%s' AND '%s'\n", startDate.format(dateFormatForSQL), endDate.format(dateFormatForSQL));
+
+        System.out.println("Additional Query : " + additionQuery);
+
+        quotationDetails = getQuotationDetailList(additionQuery);
+        quotationTableView.setItems(quotationDetails);
     }
 
     @Override

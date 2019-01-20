@@ -141,7 +141,7 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label fx:id="totalPriceLabel" text="0 Baht" textFill="#ff0505" GridPane.columnIndex="1">
+                        <Label fx:id="totalPriceLabel" text="0 Baht." textFill="#ff0505" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin>

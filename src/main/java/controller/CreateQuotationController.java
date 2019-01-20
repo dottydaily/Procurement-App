@@ -187,10 +187,23 @@ public class CreateQuotationController implements Observer {
 
             PageManager.newAlert("Update Quotation success", "Complete update an existing Quotation."
                     , Alert.AlertType.INFORMATION);
-        } else {
+        } else if (totalCost > selectedCustomer.getLimit()) {
+            PageManager.newAlert("Create Quotation error", String.format("Total Price is over limit : %,d > %,d.",
+                    totalCost, selectedCustomer.getLimit()), Alert.AlertType.ERROR);
+        }
+        else {
             for (Product p : products) {
                 database.insertQuotation(quotationID, selectedPRDetail.getPurchaseRequestId(), p.getId()
                         , selectedPRDetail.getDate(), selectedPRDetail.getCustomerID(), Integer.toString(totalCost));
+            }
+
+            int currentLimit = totalCost - selectedCustomer.getLimit();
+
+            try {
+                database.getResultSet("UPDATE customer_list SET customer_limit = " + currentLimit + "\n" +
+                        "WHERE customer_id = " + selectedCustomer.getId());
+            } catch (SQLException sqlEx) {
+                sqlEx.printStackTrace();
             }
 
             PageManager.newAlert("Create Quotation success", "Complete register a new Quotation."

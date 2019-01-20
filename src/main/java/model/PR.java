@@ -6,13 +6,17 @@ public class PR {
     private String date;
     private String customerID;
     private String prStatus;
+    private String quantity;
+    private String pricePerEach;
 
-    public PR(String id, String productID, String date, String customerID, String prStatus) {
+    public PR(String id, String productID, String date, String customerID, String prStatus, int quantity, int pricePerEach) {
         this.id = String.format("%05d", Integer.parseInt(id));
         this.productID = String.format("%05d", Integer.parseInt(productID));
         this.date = date;
         this.customerID = String.format("%05d", Integer.parseInt(customerID));
         this.prStatus = prStatus;
+        this.quantity = String.format("%,d", quantity);
+        this.pricePerEach = String.format("%,d", quantity);
     }
 
     public String getId() {

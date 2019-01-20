@@ -102,18 +102,21 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Enter send date" GridPane.halignment="RIGHT">
+                        <Label text="Enter send date" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label text="Total price of this order :" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <Label text="Total price of this order :" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                            <GridPane.margin>
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label fx:id="totalPriceLabel" text="0 Baht." GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <JFXDatePicker fx:id="sendDateDatePicker" editable="false" promptText="Choose send date of PO" GridPane.columnIndex="1" />
+                        <Label fx:id="totalPriceLabel" text="0 Baht." textFill="RED" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <JFXDatePicker fx:id="sendDateDatePicker" editable="false" promptText="Choose send date of PO" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>

@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.*;
@@ -52,6 +53,11 @@ public class AcceptPOController extends Observable {
     @FXML
     protected Label sendDateLabel;
     @FXML
+    protected Label totalPriceLabel;
+    @FXML
+    protected Label poStatusLabel;
+
+    @FXML
     protected JFXButton moreDetailButton;
     @FXML
     protected JFXButton closeButton;
@@ -67,6 +73,7 @@ public class AcceptPOController extends Observable {
     private ResultSet resultSet;
     private PODetail selectedPoDetail;
     private ArrayList<Stage> popUpStages = new ArrayList<>();
+    private int totalPrice = 0;
 
     public AcceptPOController(POListController previousController) {
         addObserver(previousController);
@@ -95,6 +102,7 @@ public class AcceptPOController extends Observable {
                         , resultSet.getString(3), resultSet.getString(4));
                 product.setId(resultSet.getString(1));
                 products.add(product);
+                totalPrice += product.getAmountAsInt();
             }
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
@@ -119,9 +127,12 @@ public class AcceptPOController extends Observable {
         quotationIdLabel.setText(selectedPoDetail.getQuotationId());
         poIdLabel.setText(selectedPoDetail.getPoId());
         sendDateLabel.setText(selectedPoDetail.getSendDate());
+        totalPriceLabel.setText(String.format("%,d Baht.", totalPrice));
+        poStatusLabel.setText(selectedPoDetail.getStatus());
 
         if (selectedPoDetail.getStatus().equals("Complete")) {
             orderCompleteButton.setDisable(true);
+            poStatusLabel.setTextFill(Color.GREEN);
         }
     }
 

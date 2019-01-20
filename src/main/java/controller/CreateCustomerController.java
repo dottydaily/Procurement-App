@@ -68,7 +68,7 @@ public class CreateCustomerController extends Observable {
             }
             else {
                 Customer customer = database.insertCustomerData(firstName, lastName, email, address
-                        , "Good", phoneNumber, "5000");
+                        , 1, phoneNumber, "50000");
                 System.out.println("DONE UPDATE DATA!");
 
                 System.out.println(firstName);

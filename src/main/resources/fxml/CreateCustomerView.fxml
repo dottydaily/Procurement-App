@@ -52,11 +52,11 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <JFXTextArea fx:id="addressTextField" layoutX="191.0" layoutY="223.0" maxWidth="250.0" minWidth="208.0" prefHeight="75.0" prefWidth="208.0" promptText="ใส่ที่อยู่" />
+                  <JFXTextArea fx:id="addressTextField" layoutX="191.0" layoutY="223.0" maxWidth="250.0" minWidth="208.0" prefHeight="75.0" prefWidth="208.0" promptText="ใส่ที่อยู่" text="100 characters" />
                   <JFXTextField fx:id="firstNameTextField" layoutX="191.0" layoutY="55.0" promptText="A-Za-z, can't have space" />
                   <JFXTextField fx:id="lastNameTextField" layoutX="191.0" layoutY="85.0" promptText="A-Za-z, can't have space" />
                   <JFXTextField fx:id="emailTextField" layoutX="191.0" layoutY="115.0" promptText="Ex. name@provider.com" />
-                  <JFXTextField fx:id="phoneNumberTextField" layoutX="191.0" layoutY="145.0" promptText="Customer's tel number" text="10 digits" />
+                  <JFXTextField fx:id="phoneNumberTextField" layoutX="191.0" layoutY="145.0" promptText="10 digits" />
                </children>
             </Pane>
             <ImageView fitHeight="217.0" fitWidth="189.0" layoutX="57.0" layoutY="206.0" pickOnBounds="true" preserveRatio="true">

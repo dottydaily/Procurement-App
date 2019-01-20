@@ -20,6 +20,7 @@ public class PRDetail {
     private String customerStatus;
     private String phoneNumber;
     private int limit;
+    private String totalCost;
 
     public PRDetail(PR pr, Customer customer) {
         DBConnecter database = DBConnecter.getInstance();
@@ -36,6 +37,8 @@ public class PRDetail {
         phoneNumber = customer.getPhoneNumber();
         limit = customer.getLimit();
 
+        int totalCost = 0;
+
         // get all product of this pr
         try {
             ResultSet pRResultSet = database.getResultSet(
@@ -44,7 +47,7 @@ public class PRDetail {
                             "   pr.product_id,\n" +
                             "   product_list.product_name,\n" +
                             "   product_list.price_per_each,\n" +
-                            "   product_list.product_quantity\n" +
+                            "   pr.product_qty\n" +
                             "FROM pr\n" +
                             "INNER JOIN product_list\n" +
                             "ON pr.product_id = product_list.product_id AND pr.pr_id = "+ purchaseRequestId);
@@ -55,16 +58,19 @@ public class PRDetail {
                                             , pRResultSet.getString(5));
                 product.setId(pRResultSet.getString(2));
 
+                totalCost += product.getAmountAsInt();
                 products.add(product);
             }
+
+            this.totalCost = String.format("%,d", totalCost);
         } catch (SQLException sqlE) {
             sqlE.printStackTrace();
         }
     }
 
-    public PRDetail(String purchaseRequestId, String date, String customerID, String prStatus, String firstName, String lastName
-            , String email, String address, String customerStatus, String phoneNumber, int limit) {
-        this(new PR(purchaseRequestId, "", date, customerID, prStatus),
+    public PRDetail(String purchaseRequestId, String date, String customerID, String prStatus, int quantity, int pricePerEach
+            , String firstName, String lastName, String email, String address, String customerStatus, String phoneNumber, int limit) {
+        this(new PR(purchaseRequestId, "", date, customerID, prStatus, quantity, pricePerEach),
                 new Customer(firstName, lastName, email, address, customerStatus, phoneNumber, limit));
     }
 
@@ -156,9 +162,32 @@ public class PRDetail {
         this.limit = limit;
     }
 
+    public String getTotalCost() {
+        return totalCost;
+    }
+
+    public int getTotalCostAsInt() {
+        return getNumberFromNumberString(totalCost);
+    }
+
+    public void setTotalCost(int totalCost) {
+        this.totalCost = String.format("%,d", totalCost);
+    }
+
+    private int getNumberFromNumberString(String text) {
+        String[] temp = text.split(",");
+        String number = "";
+        for (int i = 0 ; i < temp.length ; i++) {
+            number += temp[i];
+        }
+
+        return Integer.parseInt(number);
+    }
+
     @Override
     public String toString() {
-        return String.format("prID: %s, customerID: %s, %s, %s, %s, %s, %s, %s", purchaseRequestId, customerID, firstName, lastName, email, address, phoneNumber, prStatus);
+        return String.format("prID: %s, customerID: %s, %s, %s, %s, %s, %s, %s, %s"
+                , purchaseRequestId, customerID, firstName, lastName, email, address, phoneNumber, prStatus, totalCost);
     }
 
     public ObservableList<Product> getProducts() {

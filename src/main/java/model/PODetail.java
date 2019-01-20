@@ -39,11 +39,15 @@ public class PODetail {
                             "GROUP BY customer_list.customer_id");
 
             if (customerResultSet.next()) {
+                String customerStatus = "Bad";
+                if (customerResultSet.getBoolean(6)) {
+                    customerStatus = "Good";
+                }
                 System.out.println(customerResultSet.getString(7));
                 System.out.println(customerResultSet.getString(6));
                 this.customer = new Customer(customerResultSet.getString(2), customerResultSet.getString(3)
                         , customerResultSet.getString(4), customerResultSet.getString(5)
-                        , customerResultSet.getString(6), customerResultSet.getString(7)
+                        , customerStatus, customerResultSet.getString(7)
                         , customerResultSet.getInt(8));
                 this.customer.setId(String.format("%05d", Integer.parseInt(customerResultSet.getString(1))));
             }
