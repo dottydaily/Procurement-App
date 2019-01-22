@@ -201,13 +201,7 @@ public class CreateQuotationController implements Observer {
             }
 
             int currentLimit = selectedCustomer.getLimit() - totalCost;
-
-            try {
-                database.getResultSet("UPDATE customer_list SET customer_limit = " + currentLimit + "\n" +
-                        "WHERE customer_id = " + selectedCustomer.getId());
-            } catch (SQLException sqlEx) {
-                sqlEx.printStackTrace();
-            }
+            database.updateCustomerLimit(selectedCustomer.getId(), currentLimit);
 
             PageManager.newAlert("Create Quotation success", "Complete register a new Quotation."
                     , Alert.AlertType.INFORMATION);

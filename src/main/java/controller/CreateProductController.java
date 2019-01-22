@@ -48,6 +48,10 @@ public class CreateProductController extends Observable {
                 || amountTextField.getText().isEmpty()) {
             PageManager.newAlert("Create product error!"
                     , "Please fill all of information.", Alert.AlertType.ERROR);
+        } else if (database.hasValueInTable("product_list"
+                , "product_name", String.format("'%s'", productNameTextField.getText()))) {
+            PageManager.newAlert("Create product error!"
+                    , "Already has this product in Product history.", Alert.AlertType.ERROR);
         } else if (pricePerPieceTextField.getText().matches("\\d+") &&
                     pricePerPieceTextField.getText().matches("\\d+")){
             String productName = productNameTextField.getText();
@@ -76,6 +80,10 @@ public class CreateProductController extends Observable {
             PageManager.newAlert("Create product error!"
                     , "Price or amount must be number.", Alert.AlertType.ERROR);
         }
+
+        productNameTextField.clear();
+        pricePerPieceTextField.clear();
+        amountTextField.clear();
     }
 
 

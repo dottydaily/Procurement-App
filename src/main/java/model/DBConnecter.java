@@ -96,6 +96,17 @@ public class DBConnecter {
         return null;
     }
 
+    public void updateCustomerLimit(String customerId, int left) {
+        try {
+            String query = String.format("UPDATE customer_list SET customer_limit = %d WHERE customer_id = '%s'"
+                    , left, customerId);
+            statement = connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        }
+    }
+
     public Product insertProductData(String productName, String pricePerEach, String amount) {
 
         Product product = new Product(productName, pricePerEach, amount);
