@@ -142,10 +142,10 @@ public class CreatePRController implements Observer {
                     LocalDate.now().minusDays(30).toString(), LocalDate.now().toString()), Alert.AlertType.ERROR);
         }
         else {
-            if (totalPrice > selectCustomer.getLimit()) {
+            if (totalPrice > selectCustomer.getLimitAsInt()) {
                 PageManager.newAlert("Create PR warning", String.format("Total Price is over limit : %,d > %,d.\n" +
                                 "NOTE : You can't create Quotation of this PR if quotation still has totalCost more than limit",
-                        totalPrice, selectCustomer.getLimit()), Alert.AlertType.WARNING);
+                        totalPrice, selectCustomer.getLimitAsInt()), Alert.AlertType.WARNING);
             }
 
             System.out.println(date);

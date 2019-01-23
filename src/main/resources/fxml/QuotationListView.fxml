@@ -33,12 +33,12 @@
                   <TableView fx:id="quotationTableView" onMouseClicked="#clickQuotationDetail" prefHeight="420.0" prefWidth="670.0" GridPane.rowIndex="1">
                     <columns>
                         <TableColumn fx:id="quotationIdTableColumn" maxWidth="80.0" minWidth="60.0" prefWidth="100.0" text="Quotation ID" />
-                      <TableColumn fx:id="pRIdTableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="75.0" text="PR ID" />
+                      <TableColumn fx:id="pRIdTableColumn" maxWidth="80.0" minWidth="80.0" text="PR ID" />
                         <TableColumn fx:id="dateTableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="75.0" text="Quotation Date" />
                       <TableColumn fx:id="customerIdTableColumn" maxWidth="87.0" minWidth="60.0" prefWidth="87.0" text="Customer ID" />
                         <TableColumn fx:id="firstNameTableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="First Name" />
                         <TableColumn fx:id="lastNameTableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="75.0" text="Last Name" />
-                        <TableColumn fx:id="totalCostTableColumn" prefWidth="100.0" text="Total Cost" />
+                        <TableColumn fx:id="totalCostTableColumn" maxWidth="100.0" prefWidth="100.0" text="Total Cost" />
                     </columns>
                      <GridPane.margin>
                         <Insets top="10.0" />

@@ -188,9 +188,11 @@ public class CreateQuotationController implements Observer {
 
             PageManager.newAlert("Update Quotation success", "Complete update an existing Quotation."
                     , Alert.AlertType.INFORMATION);
-        } else if (totalCost > selectedCustomer.getLimit()) {
+
+            handleBackButton(e);
+        } else if (totalCost > selectedCustomer.getLimitAsInt()) {
             PageManager.newAlert("Create Quotation error", String.format("Total Price is over limit : %,d > %,d.",
-                    totalCost, selectedCustomer.getLimit()), Alert.AlertType.ERROR);
+                    totalCost, selectedCustomer.getLimitAsInt()), Alert.AlertType.ERROR);
         }
         else {
             for (Product p : products) {
@@ -200,14 +202,14 @@ public class CreateQuotationController implements Observer {
                         , p.getPricePerEachAsInt());
             }
 
-            int currentLimit = selectedCustomer.getLimit() - totalCost;
+            int currentLimit = selectedCustomer.getLimitAsInt() - totalCost;
             database.updateCustomerLimit(selectedCustomer.getId(), currentLimit);
 
             PageManager.newAlert("Create Quotation success", "Complete register a new Quotation."
                     , Alert.AlertType.INFORMATION);
-        }
 
-        handleBackButton(e);
+            handleBackButton(e);
+        }
     }
 
     @FXML
@@ -230,6 +232,9 @@ public class CreateQuotationController implements Observer {
             selectedCustomer = new Customer(selectedPRDetail.getFirstName(), selectedPRDetail.getLastName(), selectedPRDetail.getEmail()
                     , selectedPRDetail.getAddress(), selectedPRDetail.getCustomerStatus(), selectedPRDetail.getPhoneNumber(), selectedPRDetail.getLimit());
             selectedCustomer.setId(selectedPRDetail.getCustomerID());
+
+            System.out.println(selectedPRDetail.getLimit());
+            System.out.println(selectedCustomer.getLimitAsInt());
 
             customerNameLabel.setText(selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());
             prDetailLabel.setText("ID: "+selectedPRDetail.getPurchaseRequestId()+", Date: "+selectedPRDetail.getDate());

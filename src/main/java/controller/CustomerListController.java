@@ -75,6 +75,7 @@ public class CustomerListController extends Observable {
         statusTableViewColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         telTableViewColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         limitTableViewColumn.setCellValueFactory(new PropertyValueFactory<>("limit"));
+        limitTableViewColumn.setStyle(" -fx-alignment: CENTER-RIGHT;");
 
         customerTableView.setItems(customers);
     }

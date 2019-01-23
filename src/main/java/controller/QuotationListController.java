@@ -113,7 +113,7 @@ public class QuotationListController extends Observable {
 
             if (previousController instanceof CreatePOController) {
                 query = query +
-//                        "AND quotation_list.quotation_status = \"Incomplete\"\n" +
+                        "AND quotation_list.quotation_status = 0\n" +
                         additionalQuery + "\n" +
                         "GROUP BY quotation_list.quotation_id";
             } else if (previousController instanceof SelectMenuController) {

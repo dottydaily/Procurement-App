@@ -122,12 +122,13 @@ public class PRListController extends Observable {
                     "    customer_list.customer_status,\n" +
                     "    pr.total_cost,\n" +
                     "    pr.product_qty,\n" +
-                    "    pr.product_pricePerEach\n" +
+                    "    pr.product_pricePerEach,\n" +
+                    "    customer_list.customer_limit\n" +
                     "FROM pr\n" +
                     "INNER JOIN customer_list ON pr.customer_id = customer_list.customer_id \n";
             if (previousController instanceof CreateQuotationController) {
                 query = query +
-//                        "AND pr.pr_status = \"Incomplete\"\n" +
+                        "AND pr.pr_status = 0\n" +
                         additionalQuery + "\n" +
                         "GROUP BY pr.pr_id";
             } else if (previousController instanceof SelectMenuController) {
@@ -139,9 +140,14 @@ public class PRListController extends Observable {
             ResultSet prResultSet = database.getResultSet(query);
 
             while (prResultSet.next()) {
+                String status = "Incomplete";
+                if (prResultSet.getInt(4) == 1) {
+                    status = "Complete";
+                }
+
                 PR pr = new PR(prResultSet.getString(1), prResultSet.getString(2)
                         , prResultSet.getString(3), prResultSet.getString(5)
-                        , prResultSet.getString(4), prResultSet.getInt(13)
+                        , status, prResultSet.getInt(13)
                         , prResultSet.getInt(14));
 
                 String customerStatus = "Bad";
@@ -151,13 +157,13 @@ public class PRListController extends Observable {
                 Customer customer = customer = new Customer(prResultSet.getString(6),
                         prResultSet.getString(7), prResultSet.getString(8),
                         prResultSet.getString(9), customerStatus,
-                        prResultSet.getString(10), 50000);
+                        prResultSet.getString(10), prResultSet.getInt(15));
                 customer.setId(prResultSet.getString(5));
 
                 PRDetail prDetail = new PRDetail(pr, customer);
                 prDetail.setTotalCost(prResultSet.getInt(12));
                 list.add(prDetail);
-                System.out.println(prDetail);
+                System.out.println(prDetail.getPurchaseRequestId() + " : " + prDetail.getLimit());
             }
         } catch (SQLException sqlE) {
             sqlE.printStackTrace();
@@ -215,7 +221,7 @@ public class PRListController extends Observable {
         }
 
         int startPrice = 0;
-        int endPrice = 50000;
+        int endPrice = 99999;
         if (!priceStartTextField.getText().isEmpty()) {
             if (priceStartTextField.getText().matches("\\d+")) {
                 startPrice = Integer.parseInt(priceStartTextField.getText());
@@ -231,8 +237,8 @@ public class PRListController extends Observable {
                 endPrice = Integer.parseInt(priceEndTextField.getText());
             }
 
-            if (endPrice < startPrice || endPrice > 50000) {
-                endPrice = 50000;
+            if (endPrice < startPrice || endPrice > 99999) {
+                endPrice = 99999;
                 priceEndTextField.clear();
             }
         }

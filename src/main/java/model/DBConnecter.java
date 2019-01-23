@@ -150,9 +150,13 @@ public class DBConnecter {
 
     public void insertPR(String prID, String productID, String date, String customerID, String status
             , int totalPrice, int quantity, int pricePerEach) {
+        int statusNumber = 1;
+        if (status.equals("Incomplete")) {
+            statusNumber = 0;
+        }
         String query = "INSERT INTO pr VALUES (NULL, ";
-        query = query + String.format("'%s', '%s', '%s', '%s', '%s', '%d', '%d', '%d')",
-                prID, productID, date, customerID, status, totalPrice, quantity, pricePerEach);
+        query = query + String.format("'%s', '%s', '%s', '%s', '%d', '%d', '%d', '%d')",
+                prID, productID, date, customerID, statusNumber, totalPrice, quantity, pricePerEach);
 
         doQuery(query);
     }
@@ -160,8 +164,8 @@ public class DBConnecter {
     public void insertQuotation(String quotationID, String prID, String productID, String date
             , String customerID, String totalCost, int newPricePerEach) {
         String query = "INSERT INTO quotation_list VALUES (NULL, ";
-        query = query + String.format("'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d')",
-                quotationID, prID, productID, date, customerID, totalCost, "Incomplete", newPricePerEach);
+        query = query + String.format("'%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d')",
+                quotationID, prID, productID, date, customerID, totalCost, 0, newPricePerEach);
 
         doQuery(query);
     }
@@ -176,20 +180,26 @@ public class DBConnecter {
 
     public void insertPO(String prId, String quotationId, String sendDate) {
         String query = "INSERT INTO po VALUES (NULL, ";
-        query = query + String.format("'%s', '%s', '%s', '%s')"
-                , prId, quotationId, sendDate, "Incomplete");
+        query = query + String.format("'%s', '%s', '%s', '%d')"
+                , prId, quotationId, sendDate, 0);
 
         doQuery(query);
     }
 
     public void updatePoStatus(String poId, String prId, String quotationId, String status) {
         System.out.println(poId + status);
-        String query = String.format("UPDATE po SET po_status = '%s' WHERE po_id = %s", status, poId);
+
+        int statusNumber = 0;
+        if (status.equals("Complete")) {
+            statusNumber = 1;
+        }
+
+        String query = String.format("UPDATE po SET po_status = '%d' WHERE po_id = %s", statusNumber, poId);
         doQuery(query);
-        query = String.format("UPDATE pr SET pr_status = '%s' WHERE pr_id = %s", status, prId);
+        query = String.format("UPDATE pr SET pr_status = '%d' WHERE pr_id = %s", statusNumber, prId);
         doQuery(query);
-        query = String.format("UPDATE quotation_list SET quotation_status = '%s' WHERE quotation_id = %s"
-                , status, quotationId);
+        query = String.format("UPDATE quotation_list SET quotation_status = '%d' WHERE quotation_id = %s"
+                , statusNumber, quotationId);
         doQuery(query);
     }
 

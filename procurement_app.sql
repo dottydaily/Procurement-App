@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 22, 2019 at 04:15 AM
+-- Generation Time: Jan 23, 2019 at 03:48 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.0
 
@@ -21,7 +21,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `procurement_app`
 --
-CREATE DATABASE IF NOT EXISTS `procurement_app` DEFAULT CHARACTER SET utf16 COLLATE utf16_thai_520_w2;
+CREATE DATABASE IF NOT EXISTS `procurement_app` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `procurement_app`;
 
 -- --------------------------------------------------------
@@ -58,22 +58,8 @@ INSERT INTO `customer_list` (`customer_id`, `customer_firstname`, `customer_last
 (00011, 'HIDEO', 'KOJIMA', 'kojimagame@gmail.com', '188, Tokyo, Japan, 08112', 1, 0673755577, 50000),
 (00012, 'SOMCHAI', 'KITIMASAK', 'somchai.k@gmail.com', 'Mexico.', 1, 0977744457, 50000),
 (00013, 'SUKEE', 'YAKY', 'sukee.y@mk.com', 'Japanese', 1, 0775541148, 50000),
-(00014, 'PATTADON', 'MAHAKANOK', 'pattadon.dew@gmail.com', 'Pathumthani 12130', 1, 0897745535, 50000);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `order_list`
---
-
-DROP TABLE IF EXISTS `order_list`;
-CREATE TABLE `order_list` (
-  `orderlist_id` int(5) UNSIGNED ZEROFILL NOT NULL,
-  `product_id` int(5) UNSIGNED ZEROFILL NOT NULL,
-  `amount` int(11) NOT NULL,
-  `price_each` int(11) NOT NULL,
-  `po_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_thai_520_w2;
+(00014, 'PATTADON', 'MAHAKANOK', 'pattadon.dew@gmail.com', 'Pathumthani 12130', 1, 0897745535, 50000),
+(00015, 'ISOON', 'PITIPASIT', 'isoon.p@yahoo.com', 'Chachuengsao, Thailand', 1, 0923344412, 50000);
 
 -- --------------------------------------------------------
 
@@ -87,7 +73,7 @@ CREATE TABLE `po` (
   `pr_id` int(5) UNSIGNED ZEROFILL NOT NULL,
   `quotation_id` int(5) UNSIGNED ZEROFILL NOT NULL,
   `send_date` date NOT NULL,
-  `po_status` varchar(20) NOT NULL DEFAULT 'Incomplete'
+  `po_status` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -95,17 +81,19 @@ CREATE TABLE `po` (
 --
 
 INSERT INTO `po` (`po_id`, `pr_id`, `quotation_id`, `send_date`, `po_status`) VALUES
-(00001, 00002, 00001, '2018-12-28', 'Complete'),
-(00002, 00001, 00000, '2018-12-20', 'Complete'),
-(00004, 00003, 00004, '2019-01-14', 'Complete'),
-(00006, 00000, 00002, '2019-07-07', 'Complete'),
-(00008, 00006, 00006, '2019-10-10', 'Complete'),
-(00009, 00000, 00002, '2019-01-14', 'Complete'),
-(00014, 00012, 00010, '2019-01-24', 'Complete'),
-(00016, 00013, 00012, '2019-01-18', 'Complete'),
-(00018, 00017, 00014, '2019-02-17', 'Complete'),
-(00022, 00005, 00003, '2019-01-31', 'Complete'),
-(00023, 00022, 00018, '2019-01-27', 'Complete');
+(00001, 00002, 00001, '2018-12-28', 1),
+(00002, 00001, 00000, '2018-12-20', 1),
+(00004, 00003, 00004, '2019-01-14', 1),
+(00006, 00000, 00002, '2019-07-07', 1),
+(00008, 00006, 00006, '2019-10-10', 1),
+(00009, 00000, 00002, '2019-01-14', 1),
+(00014, 00012, 00010, '2019-01-24', 1),
+(00016, 00013, 00012, '2019-01-18', 1),
+(00018, 00017, 00014, '2019-02-17', 1),
+(00022, 00005, 00003, '2019-01-31', 1),
+(00023, 00022, 00018, '2019-01-27', 1),
+(00024, 00021, 00017, '2019-02-14', 1),
+(00025, 00023, 00019, '2019-01-31', 1);
 
 -- --------------------------------------------------------
 
@@ -120,7 +108,7 @@ CREATE TABLE `pr` (
   `product_id` int(5) UNSIGNED ZEROFILL NOT NULL,
   `date` date NOT NULL,
   `customer_id` int(5) UNSIGNED ZEROFILL NOT NULL,
-  `pr_status` varchar(20) NOT NULL DEFAULT 'Incomplete',
+  `pr_status` tinyint(1) NOT NULL DEFAULT '0',
   `total_cost` int(5) NOT NULL,
   `product_qty` int(10) UNSIGNED NOT NULL,
   `product_pricePerEach` int(10) UNSIGNED NOT NULL
@@ -131,26 +119,27 @@ CREATE TABLE `pr` (
 --
 
 INSERT INTO `pr` (`prDetailID`, `pr_id`, `product_id`, `date`, `customer_id`, `pr_status`, `total_cost`, `product_qty`, `product_pricePerEach`) VALUES
-(00001, 00000, 00008, '2018-12-13', 00004, 'Incomplete', 1845, 5, 189),
-(00002, 00000, 00005, '2018-12-13', 00004, 'Incomplete', 1845, 30, 30),
-(00003, 00001, 00009, '2018-12-13', 00004, 'Complete', 6980, 10, 299),
-(00004, 00001, 00004, '2018-12-13', 00004, 'Complete', 6980, 10, 399),
-(00005, 00002, 00010, '2018-12-23', 00004, 'Complete', 3496, 1, 1999),
-(00006, 00002, 00011, '2018-12-23', 00004, 'Complete', 3496, 2, 7000),
-(00007, 00003, 00001, '2018-07-23', 00003, 'Complete', 2925, 100, 29),
-(00008, 00003, 00006, '2018-07-23', 00003, 'Complete', 2925, 1, 25),
-(00010, 00005, 00002, '2019-01-03', 00007, 'Complete', 10809, 25, 320),
-(00011, 00005, 00005, '2019-01-03', 00007, 'Complete', 10809, 77, 30),
-(00012, 00005, 00012, '2019-01-03', 00007, 'Complete', 10809, 1, 499),
-(00013, 00006, 00012, '2019-01-18', 00004, 'Complete', 599, 0, 799),
-(00021, 00012, 00003, '2019-01-10', 00001, 'Complete', 1000, 0, 20),
-(00022, 00013, 00016, '2019-01-13', 00006, 'Complete', 1580, 0, 20),
-(00027, 00017, 00009, '2019-01-16', 00005, 'Complete', 1076, 0, 299),
-(00028, 00017, 00020, '2019-01-16', 00005, 'Complete', 1076, 0, 239),
-(00032, 00021, 00011, '2019-01-04', 00008, 'Incomplete', 10998, 1, 7000),
-(00033, 00021, 00010, '2019-01-04', 00008, 'Incomplete', 10998, 2, 1999),
-(00034, 00022, 00022, '2019-01-07', 00006, 'Complete', 5955, 1, 3999),
-(00035, 00022, 00023, '2019-01-07', 00006, 'Complete', 5955, 4, 489);
+(00001, 00000, 00008, '2018-12-13', 00004, 0, 1845, 5, 189),
+(00002, 00000, 00005, '2018-12-13', 00004, 0, 1845, 30, 30),
+(00003, 00001, 00009, '2018-12-13', 00004, 1, 6980, 10, 299),
+(00004, 00001, 00004, '2018-12-13', 00004, 1, 6980, 10, 399),
+(00005, 00002, 00010, '2018-12-23', 00004, 1, 3496, 1, 1999),
+(00006, 00002, 00011, '2018-12-23', 00004, 1, 3496, 2, 7000),
+(00007, 00003, 00001, '2018-07-23', 00003, 1, 2925, 100, 29),
+(00008, 00003, 00006, '2018-07-23', 00003, 1, 2925, 1, 25),
+(00010, 00005, 00002, '2019-01-03', 00007, 1, 10809, 25, 320),
+(00011, 00005, 00005, '2019-01-03', 00007, 1, 10809, 77, 30),
+(00012, 00005, 00012, '2019-01-03', 00007, 1, 10809, 1, 499),
+(00013, 00006, 00012, '2019-01-18', 00004, 1, 599, 0, 799),
+(00021, 00012, 00003, '2019-01-10', 00001, 1, 1000, 0, 20),
+(00022, 00013, 00016, '2019-01-13', 00006, 1, 1580, 0, 20),
+(00027, 00017, 00009, '2019-01-16', 00005, 1, 1076, 0, 299),
+(00028, 00017, 00020, '2019-01-16', 00005, 1, 1076, 0, 239),
+(00032, 00021, 00011, '2019-01-04', 00008, 1, 10998, 1, 7000),
+(00033, 00021, 00010, '2019-01-04', 00008, 1, 10998, 2, 1999),
+(00034, 00022, 00022, '2019-01-07', 00006, 1, 5955, 1, 3999),
+(00035, 00022, 00023, '2019-01-07', 00006, 1, 5955, 4, 489),
+(00036, 00023, 00017, '2019-01-17', 00006, 1, 63960, 4, 15990);
 
 -- --------------------------------------------------------
 
@@ -187,7 +176,7 @@ INSERT INTO `product_list` (`product_id`, `product_name`, `price_per_each`, `pro
 (00014, 'Ostry KC06A', 2490, 1),
 (00015, 'REMAX 3.0 USB 2 M', 199, 3),
 (00016, 'BBQ Candy', 20, 79),
-(00017, 'Playstation 4 PRO 1TB', 15990, 1),
+(00017, 'Playstation 4 PRO 1TB', 9500, 1),
 (00018, 'Nintendo Switch', 15000, 1),
 (00019, 'PS VITA', 8990, 1),
 (00020, 'Apacer USB 3.0 8GB', 239, 2),
@@ -210,7 +199,7 @@ CREATE TABLE `quotation_list` (
   `date` date NOT NULL,
   `customer_id` int(5) UNSIGNED ZEROFILL NOT NULL,
   `total_cost` int(20) UNSIGNED NOT NULL,
-  `quotation_status` varchar(20) NOT NULL DEFAULT 'Incomplete',
+  `quotation_status` tinyint(1) NOT NULL DEFAULT '0',
   `new_pricePerEach` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -219,26 +208,27 @@ CREATE TABLE `quotation_list` (
 --
 
 INSERT INTO `quotation_list` (`quotationDetailID`, `quotation_id`, `pr_id`, `product_id`, `date`, `customer_id`, `total_cost`, `quotation_status`, `new_pricePerEach`) VALUES
-(00001, 00000, 00001, 00009, '2018-12-13', 00004, 8080, 'Complete', 349),
-(00002, 00000, 00001, 00004, '2018-12-13', 00004, 8080, 'Complete', 459),
-(00003, 00001, 00002, 00010, '2018-12-23', 00004, 16999, 'Complete', 1999),
-(00004, 00001, 00002, 00011, '2018-12-23', 00004, 16999, 'Complete', 7500),
-(00005, 00002, 00000, 00008, '2018-12-13', 00004, 1845, 'Incomplete', 189),
-(00006, 00002, 00000, 00005, '2018-12-13', 00004, 1845, 'Incomplete', 30),
-(00007, 00003, 00005, 00002, '2019-01-03', 00007, 10909, 'Complete', 320),
-(00008, 00003, 00005, 00005, '2019-01-03', 00007, 10909, 'Complete', 30),
-(00009, 00003, 00005, 00012, '2019-01-03', 00007, 10909, 'Complete', 599),
-(00010, 00004, 00003, 00001, '2018-07-23', 00003, 2925, 'Complete', 29),
-(00011, 00004, 00003, 00006, '2018-07-23', 00003, 2925, 'Complete', 25),
-(00012, 00006, 00006, 00012, '2019-01-18', 00004, 599, 'Complete', 0),
-(00016, 00010, 00012, 00003, '2019-01-10', 00001, 1000, 'Complete', 0),
-(00019, 00012, 00013, 00016, '2019-01-13', 00006, 1580, 'Complete', 0),
-(00021, 00014, 00017, 00009, '2019-01-16', 00005, 1076, 'Complete', 0),
-(00022, 00014, 00017, 00020, '2019-01-16', 00005, 1076, 'Complete', 0),
-(00027, 00017, 00021, 00011, '2019-01-04', 00008, 11498, 'Incomplete', 7500),
-(00028, 00017, 00021, 00010, '2019-01-04', 00008, 11498, 'Incomplete', 1999),
-(00029, 00018, 00022, 00022, '2019-01-07', 00006, 6675, 'Complete', 4559),
-(00030, 00018, 00022, 00023, '2019-01-07', 00006, 6675, 'Complete', 529);
+(00001, 00000, 00001, 00009, '2018-12-13', 00004, 8080, 1, 349),
+(00002, 00000, 00001, 00004, '2018-12-13', 00004, 8080, 1, 459),
+(00003, 00001, 00002, 00010, '2018-12-23', 00004, 16999, 1, 1999),
+(00004, 00001, 00002, 00011, '2018-12-23', 00004, 16999, 1, 7500),
+(00005, 00002, 00000, 00008, '2018-12-13', 00004, 1845, 0, 189),
+(00006, 00002, 00000, 00005, '2018-12-13', 00004, 1845, 0, 30),
+(00007, 00003, 00005, 00002, '2019-01-03', 00007, 10909, 1, 320),
+(00008, 00003, 00005, 00005, '2019-01-03', 00007, 10909, 1, 30),
+(00009, 00003, 00005, 00012, '2019-01-03', 00007, 10909, 1, 599),
+(00010, 00004, 00003, 00001, '2018-07-23', 00003, 2925, 1, 29),
+(00011, 00004, 00003, 00006, '2018-07-23', 00003, 2925, 1, 25),
+(00012, 00006, 00006, 00012, '2019-01-18', 00004, 599, 1, 0),
+(00016, 00010, 00012, 00003, '2019-01-10', 00001, 1000, 1, 0),
+(00019, 00012, 00013, 00016, '2019-01-13', 00006, 1580, 1, 0),
+(00021, 00014, 00017, 00009, '2019-01-16', 00005, 1076, 1, 0),
+(00022, 00014, 00017, 00020, '2019-01-16', 00005, 1076, 1, 0),
+(00027, 00017, 00021, 00011, '2019-01-04', 00008, 11498, 1, 7500),
+(00028, 00017, 00021, 00010, '2019-01-04', 00008, 11498, 1, 1999),
+(00029, 00018, 00022, 00022, '2019-01-07', 00006, 6675, 1, 4559),
+(00030, 00018, 00022, 00023, '2019-01-07', 00006, 6675, 1, 529),
+(00031, 00019, 00023, 00017, '2019-01-17', 00006, 38000, 1, 9500);
 
 -- --------------------------------------------------------
 
@@ -279,13 +269,6 @@ ALTER TABLE `customer_list`
   ADD PRIMARY KEY (`customer_id`);
 
 --
--- Indexes for table `order_list`
---
-ALTER TABLE `order_list`
-  ADD PRIMARY KEY (`orderlist_id`,`product_id`),
-  ADD KEY `po_id` (`po_id`);
-
---
 -- Indexes for table `po`
 --
 ALTER TABLE `po`
@@ -323,37 +306,31 @@ ALTER TABLE `user_list`
 -- AUTO_INCREMENT for table `customer_list`
 --
 ALTER TABLE `customer_list`
-  MODIFY `customer_id` int(5) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT for table `order_list`
---
-ALTER TABLE `order_list`
-  MODIFY `orderlist_id` int(5) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT;
+  MODIFY `customer_id` int(5) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `po`
 --
 ALTER TABLE `po`
-  MODIFY `po_id` int(5) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `po_id` int(5) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `pr`
 --
 ALTER TABLE `pr`
-  MODIFY `prDetailID` int(5) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `prDetailID` int(5) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `product_list`
 --
 ALTER TABLE `product_list`
-  MODIFY `product_id` int(5) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `product_id` int(5) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `quotation_list`
 --
 ALTER TABLE `quotation_list`
-  MODIFY `quotationDetailID` int(5) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `quotationDetailID` int(5) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `user_list`

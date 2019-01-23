@@ -1,6 +1,7 @@
 package controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,8 @@ import model.Product;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -50,7 +53,14 @@ public class ProductListController extends Observable {
     @FXML
     protected JFXButton backButton;
 
-
+    @FXML
+    protected JFXTextField productNameTextField;
+    @FXML
+    protected JFXTextField priceStartTextField;
+    @FXML
+    protected JFXTextField priceEndTextField;
+    @FXML
+    protected JFXButton searchButton;
 
     private DBConnecter database = DBConnecter.getInstance();
     private ResultSet resultSet;
@@ -77,22 +87,11 @@ public class ProductListController extends Observable {
             addProductButton.setDisable(true);
             descriptionLabel.setOpacity(0);
         } else if (previousController instanceof CreatePRController) {
+            searchButton.setDefaultButton(true);
             backButton.setText("Close");
         }
 
         PageManager.setClockInView(timeLabel);
-
-        try {
-            resultSet = database.getResultSet("SELECT * FROM product_list");
-            products = getProductList(resultSet);
-
-            for (Product product : products) {
-                System.out.println(product);
-            }
-        } catch (SQLException sqlE) {
-            System.out.println("Cannot query from customer_list.");
-            sqlE.printStackTrace();
-        }
 
         productIDTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         productNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -106,10 +105,12 @@ public class ProductListController extends Observable {
         productTableView.setItems(products);
     }
 
-    private ObservableList<Product> getProductList(ResultSet resultSet) {
+    private ObservableList<Product> getProductList(String additionalQuery) {
         ObservableList<Product> list = FXCollections.observableArrayList();
 
         try {
+            resultSet = database.getResultSet("SELECT * FROM product_list\n" + additionalQuery);
+
             while (resultSet.next()) {
                 Product product = new Product(resultSet.getString(2)
                         , resultSet.getString(3), resultSet.getString(4));
@@ -117,7 +118,12 @@ public class ProductListController extends Observable {
 
                 list.add(product);
             }
+
+            for (Product product : list) {
+                System.out.println(product);
+            }
         } catch (SQLException sqlE) {
+            System.out.println("Cannot query from product_list.");
             sqlE.printStackTrace();
         }
 
@@ -126,9 +132,19 @@ public class ProductListController extends Observable {
 
     @FXML
     public void clickProduct(MouseEvent event) {
-        selectedProduct = productTableView.getSelectionModel().getSelectedItem();
-        addProductButton.setDisable(false);
-        amountTextField.setDisable(false);
+        if (previousController instanceof CreatePRController) {
+            selectedProduct = productTableView.getSelectionModel().getSelectedItem();
+
+            searchButton.setDefaultButton(false);
+            searchButton.setDisable(true);
+            productNameTextField.setDisable(true);
+            priceStartTextField.setDisable(true);
+            priceEndTextField.setDisable(true);
+
+            addProductButton.setDisable(false);
+            addProductButton.setDefaultButton(true);
+            amountTextField.setDisable(false);
+        }
     }
 
     @FXML
@@ -146,8 +162,16 @@ public class ProductListController extends Observable {
         selectedProduct.setQuantity(Integer.parseInt(amountTextField.getText()));
         notifyObservers(selectedProduct);
         addProductButton.setDisable(true);
+        addProductButton.setDefaultButton(false);
+        searchButton.setDefaultButton(true);
         amountTextField.clear();
         amountTextField.setDisable(true);
+
+        searchButton.setDefaultButton(true);
+        searchButton.setDisable(false);
+        productNameTextField.setDisable(false);
+        priceStartTextField.setDisable(false);
+        priceEndTextField.setDisable(false);
     }
 
     @FXML
@@ -158,6 +182,45 @@ public class ProductListController extends Observable {
             Stage stage = (Stage) backButton.getScene().getWindow();
             stage.close();
         }
+    }
+
+    @FXML
+    protected void handleSearchButton(ActionEvent e) {
+        String additionQuery = "WHERE product_list.product_name LIKE '%'\n";
+
+        if (!productNameTextField.getText().isEmpty()) {
+            String name = productNameTextField.getText();
+            additionQuery = String.format("WHERE product_list.product_name LIKE '%%%s%%'\n", name);
+        }
+
+        int startPrice = 0;
+        int endPrice = 50000;
+        if (!priceStartTextField.getText().isEmpty()) {
+            if (priceStartTextField.getText().matches("\\d+")) {
+                startPrice = Integer.parseInt(priceStartTextField.getText());
+            }
+
+            if (startPrice > endPrice || startPrice < 0) {
+                startPrice = 0;
+                priceStartTextField.clear();
+            }
+        }
+        if (!priceEndTextField.getText().isEmpty()) {
+            if (priceEndTextField.getText().matches("\\d+")) {
+                endPrice = Integer.parseInt(priceEndTextField.getText());
+            }
+
+            if (endPrice < startPrice || endPrice > 50000) {
+                endPrice = 50000;
+                priceEndTextField.clear();
+            }
+        }
+        additionQuery += String.format("AND product_list.price_per_each BETWEEN %d AND %d\n", startPrice, endPrice);
+
+        System.out.println("Additional Query : " + additionQuery);
+
+        products = getProductList(additionQuery);
+        productTableView.setItems(products);
     }
 
     @Override

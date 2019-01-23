@@ -27,7 +27,7 @@
                         <TableColumn fx:id="emailTableViewColumn" maxWidth="100.0" minWidth="100.0" prefWidth="75.0" text="Email" />
                         <TableColumn fx:id="addressTableViewColumn" prefWidth="75.0" text="Address" />
                         <TableColumn fx:id="telTableViewColumn" prefWidth="75.0" text="Tel" />
-                        <TableColumn fx:id="statusTableViewColumn" prefWidth="75.0" text="Status" />
+                        <TableColumn fx:id="statusTableViewColumn" minWidth="55.0" prefWidth="55.0" text="Status" />
                         <TableColumn fx:id="limitTableViewColumn" prefWidth="75.0" text="Limit" />
                     </columns>
                   </TableView>

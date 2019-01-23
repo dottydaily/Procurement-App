@@ -8,7 +8,7 @@ public class Customer {
     private String address;
     private String status;
     private String phoneNumber;
-    private int limit;
+    private String limit;
 
     public Customer(String firstName, String lastName, String email, String address, String status, String phoneNumber, int limit) {
         this.id = null;
@@ -18,7 +18,7 @@ public class Customer {
         this.address = address;
         this.status = status;
         this.phoneNumber = String.format("%010d", Integer.parseInt(phoneNumber));
-        this.limit = limit;
+        this.limit = String.format("%,d", limit);
     }
 
     public void setId(String id) {
@@ -50,7 +50,7 @@ public class Customer {
     }
 
     public void setLimit(int limit) {
-        this.limit = limit;
+        this.limit = String.format("%,d", limit);
     }
 
     public String getId() {
@@ -81,8 +81,22 @@ public class Customer {
         return phoneNumber;
     }
 
-    public int getLimit() {
+    public String getLimit() {
         return limit;
+    }
+
+    public int getLimitAsInt() {
+        return getNumberFromNumberString(limit);
+    }
+
+    private int getNumberFromNumberString(String text) {
+        String[] temp = text.split(",");
+        String number = "";
+        for (int i = 0 ; i < temp.length ; i++) {
+            number += temp[i];
+        }
+
+        return Integer.parseInt(number);
     }
 
     @Override

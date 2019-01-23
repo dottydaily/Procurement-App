@@ -86,10 +86,14 @@ public class POListController implements Observer {
 
         try {
             while (resultSet.next()) {
+                String status = "Incomplete";
+                if (resultSet.getInt(8) == 1) {
+                    status = "Complete";
+                }
                 PODetail poDetail = new PODetail(resultSet.getString(1), resultSet.getString(2)
                         , resultSet.getString(3), resultSet.getString(4)
                         , resultSet.getString(5), resultSet.getString(6)
-                        , resultSet.getDouble(7), resultSet.getString(8));
+                        , resultSet.getDouble(7), status);
 
                 list.add(poDetail);
             }

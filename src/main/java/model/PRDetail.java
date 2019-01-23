@@ -35,7 +35,9 @@ public class PRDetail {
         prStatus = pr.getPrStatus();
         customerStatus = customer.getStatus();
         phoneNumber = customer.getPhoneNumber();
-        limit = customer.getLimit();
+        limit = customer.getLimitAsInt();
+
+        System.out.println("PRINT LIMIT ESUS : " + limit);
 
         int totalCost = 0;
 
